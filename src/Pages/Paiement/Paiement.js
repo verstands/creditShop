@@ -17,8 +17,10 @@ import {
   Input,
 
 } from "@material-tailwind/react";
+
 import {
   FaTachometerAlt,
+  FaMoneyBill
 } from 'react-icons/fa';
 const Paiement = () => {
   const TABLE_HEAD = ["Montant", "Devise", "Date", ""];
@@ -57,9 +59,10 @@ const Paiement = () => {
           <Card className="h-full w-full overflow-scroll">
             <CardHeader floated={false} shadow={false} className="rounded-none">
               <div className="mb-4 flex flex-col justify-between gap-8 md:flex-row md:items-center">
-                <div>
+                <div className='flex items-center gap-3'>
+                  <FaMoneyBill />
                   <Typography variant="h5" color="blue-gray">
-                    Les paiements
+                    Mes paiements
                   </Typography>
                 </div>
               </div>

@@ -2,7 +2,9 @@ import React from 'react'
 
 const Page404 = () => {
   return (
-    <div>Page404</div>
+    <div>
+      <center>Page404</center>
+    </div>
   )
 }
 

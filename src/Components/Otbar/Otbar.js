@@ -23,7 +23,11 @@ const Otbar = () => {
         setOpen(!open)
     }
     const showBtnDropDown = () => {
-        setOpenBtnDwn(!openBtnDwn)
+        if(window.innerHeight <= 640){
+            setOpenBtnDwn(!openBtnDwn)
+        }else{
+            alert('ss')
+        }
     }
     return (
         <>
@@ -52,11 +56,11 @@ const Otbar = () => {
                             <div className="bg-white border h-[120px] w-[150px] absolute bottom-[-135px] z-20 rigth-0 pt-[15px] pl-[15px]">
                                 <p className='flex gap-3'>
 
-                                    <Link to="" className='hover:text-dark-purple font-semibold'>Profile</Link>
+                                    <Link to="/profil" className='hover:text-dark-purple font-semibold'>Profile</Link>
                                 </p>
                                 <p className='flex gap-3'>
 
-                                    <Link to="" className='hover:text-dark-purple font-semibold'>Parametre</Link>
+                                    <Link to="/parametre" className='hover:text-dark-purple font-semibold'>Parametre</Link>
                                 </p>
                                 <p className='flex gap-3'>
 
