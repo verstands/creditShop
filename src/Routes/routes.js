@@ -7,6 +7,7 @@ import Paiement from '../Pages/Paiement/Paiement';
 import AchatCredit from '../Pages/AchatCredit/AchatCredit';
 import Profil from '../Pages/Profil/Profil';
 import Page404 from '../Pages/404/Page404';
+import Login from '../Pages/Login/Login';
 
 
 
@@ -43,7 +44,7 @@ const routes = createBrowserRouter([
     },
     {
         path : '/login',
-        element : <p>Bonjour</p>
+        element : <Login />
     }
 ])
 

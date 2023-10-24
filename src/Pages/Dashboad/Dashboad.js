@@ -53,14 +53,14 @@ const Dashboad = () => {
     },
   ];
   return (
-    <div className='pt-[25px]  px-[25px] bg-[#F8F9FC]'>
+    <div className='pt-[25px]  px-[25px] bg-[#dfe1e3]'>
       <div className='flex items-center justify-between'>
-        <h1 className='text-[#5a5c69] text-[28px] leading-[34px] font-normal'>Acceuil</h1>
+        <h1 className='text-[#363738] text-[28px] leading-[34px] font-n'>Acceuil</h1>
         <div>
 
         </div>
       </div>
-      <div className='grid grid-cols-4 gap-[30px] mt-[25px] pb-[15px]'>
+      <div className='grid grid-cols-1 md:grid-cols-4  gap-[30px] mt-[25px] pb-[15px]'>
         <div className='h-[100px] rounded-[8px] bg-white border-l-[4px] border-dark-purple flex items-center justify-between px-[30px] hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease'>
           <div>
             <h2 className='text-[#B589DF] text-[11px] leading-[17px] font-bold'>Nombre commade</h2>
@@ -93,13 +93,12 @@ const Dashboad = () => {
       <Card className="h-full w-full overflow-scroll">
         <CardHeader floated={false} shadow={false} className="rounded-none">
           <div className="mb-4 flex flex-col justify-between gap-8 md:flex-row md:items-center">
-            <div>
-              <Typography variant="h5" color="blue-gray">
-                Les paiement recents
-              </Typography>
-              <Typography color="gray" className="mt-1 font-normal">
-                Ce sont des détails sur les dernières paiements
-              </Typography>
+            <div className="flex">
+              <div className='px-5 flex items-center'>
+                <Typography variant="h5" color="blue-gray">
+                  Les paiement recents
+                </Typography>
+              </div>
             </div>
           </div>
         </CardHeader>

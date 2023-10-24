@@ -53,7 +53,6 @@ const Paiement = () => {
   return (
     <>
       <div className='pt-[25px]  px-[25px] bg-[#F8F9FC]'>
-       
         <div>
           <Card className="h-full w-full overflow-scroll">
             <CardHeader floated={false} shadow={false} className="rounded-none">

@@ -31,11 +31,11 @@ const Sidebar = () => {
                 <Link to='/paiements' className='text-[14px] leading-[20px] font-bold text-white'>Mes paiement</Link>
             </div>
             <div className='flex items-center gap-[15px] py-[20px]  border-white'>
-                <FaCreditCard color='white' />
+                <FaTachometerAlt color='white' />
                 <Link to='achatcredit' className='text-[14px] leading-[20px] font-bold text-white'>Achat Credit</Link>
             </div>
             <div className='flex items-center gap-[15px] py-[20px]  border-white'>
-                <FaUser color='white' />
+                <FaTachometerAlt color='white' />
                 <Link to='/profil' className='text-[14px] leading-[20px] font-bold text-white'>Profil</Link>
             </div>
             <div className='flex items-center gap-[15px] py-[20px]  border-white'>
