@@ -6,12 +6,11 @@ import { TEInput, TERipple } from "tw-elements-react";
 
 
 const Login = () => {
-    const [showNan, setshowNan] = useState(true)
-    const [IsMobile, setIsMobile] = useState(false)
-    const [telephone, setTelephone] = useState('')
-    const [password, setPasswprd] = useState('')
+    const [showNan, setshowNan] = useState(true);
+    const [IsMobile, setIsMobile] = useState(false);
     const navigate = useNavigate();
     const [loading, setloading] = useState(false);
+    let url = 'http://localhost:5000/api/';
     const form = useRef();
 
     function handleResize() {
@@ -39,19 +38,23 @@ const Login = () => {
 
     const SignInBtn = (e) => {
         e.preventDefault()
-        axios.post(`${process.env.REACT_APP_SERVICE_API}login`,
+        setloading(true)
+        axios.post(`${url}login`,
             {
-                email: email,
-                password: password
+                client_tel: form.current[0].value,
+                client_mdp: form.current[1].value,
             }
         ).then((response) => {
-            let token = JSON.stringify(response.data.token);
-            let tokenT = token.substring(1, token.length - 1);
-            localStorage.setItem("token", tokenT)
-            setloading(false)
-            navigate('/home')
-            window.location.reload();
-            toast.success(`success`)
+            let token;
+            if (response.data.token !== undefined) {
+                token = JSON.stringify(response.data.token);
+                  let tokenT = token.substring(1, token.length - 1);
+                  localStorage.setItem("token", tokenT);
+                  setloading(false);
+                  navigate('/acceuil');
+              } else {
+                token = '';
+              }
         }).catch((error) => {
             if (error?.response?.status === 401) {
                 setloading(false)
@@ -66,19 +69,21 @@ const Login = () => {
                 setloading(false)
                 toast.error(`${error.response.data.message}`)
             } else {
-                alert(`${process.env.REACT_APP_SERVICE_API}login`)
+                alert(error)
+                setloading(false)
             }
         })
-        
+
     }
     return (
         <>
             <section class="bg-gray-50 dark:bg-gray-900">
                 <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
                     <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-                        <img class="w-11 h-11 rounded mr-2" src="images/logos.png"  alt="logo" />
-                            CreditShop
+                        <img class="w-11 h-11 rounded mr-2" src="images/logos.png" alt="logo" />
+                        CreditShop
                     </a>
+
                     <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                         <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                             <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
@@ -104,9 +109,14 @@ const Login = () => {
                                     </div>
                                     <a href="#" class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Mot de passe oublié</a>
                                 </div>
-                                <button type="submit" class="w-full text-white bg-primary-600  bg-dark-purple hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Se connecter</button>
+                                <button type="submit" class="w-full text-white bg-primary-600 bg-dark-purple hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                                    <div class="flex items-center justify-center">
+                                        {loading && <div class="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white-900 mr-2"></div>}
+                                        <span class="text-center">Se connecter</span>
+                                    </div>
+                                </button>
                                 <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                                Vous n'avez pas encore de compte?  <a href="/inscription" class="font-medium text-primary-600 hover:underline dark:text-primary-500">S'inscrire</a>
+                                    Vous n'avez pas encore de compte?  <a href="/inscription" class="font-medium text-primary-600 hover:underline dark:text-primary-500">S'inscrire</a>
                                 </p>
                             </form>
                         </div>

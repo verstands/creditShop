@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     ArrowDownTrayIcon,
     MagnifyingGlassIcon,
@@ -21,37 +21,22 @@ import {
     FaCreditCard,
     FaShoppingCart
 } from 'react-icons/fa';
+import { getAchatCredit } from '../../Apis/AchatCreditApi';
+import TableAchatCredit from '../../Components/TableAchatCredit/TableAchatCredit';
 
 const AchatCredit = () => {
     const TABLE_HEAD = ["Montant", "Devise", "Date", ""];
+    const [getAchatCredits, setgetAchatCredits] = useState([]);
+    const [loading, setloading] = useState(true)
 
-    const TABLE_ROWS = [
-        {
-            name: "John Michael",
-            job: "Manager",
-            date: "23/04/18",
-        },
-        {
-            name: "Alexa Liras",
-            job: "Developer",
-            date: "23/04/18",
-        },
-        {
-            name: "Laurent Perrier",
-            job: "Executive",
-            date: "19/09/17",
-        },
-        {
-            name: "Michael Levi",
-            job: "Developer",
-            date: "24/12/08",
-        },
-        {
-            name: "Richard Gran",
-            job: "Manager",
-            date: "04/10/21",
-        },
-    ];
+    useEffect(() => {
+        getAchatCredit().then((membre) => {
+            setgetAchatCredits(membre);
+            setloading(false)
+        }).catch((error) => {
+            console.log(error);
+        });
+    }, []);
     return (
         <div className='pt-[25px]  px-[25px] bg-[#F8F9FC]'>
             <div>
@@ -89,7 +74,7 @@ const AchatCredit = () => {
                                 ))}
                             </tr>
                         </thead>
-
+                        <TableAchatCredit TABLE_ROWS={getAchatCredits} />
                     </table>
                 </Card>
             </div>

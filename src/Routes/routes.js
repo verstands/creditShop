@@ -23,8 +23,8 @@ const RoutePage = () => {
                 <Route path="/paiements" element={<Paiement />} />
                 <Route path="/achatcredit" element={<AchatCredit />} />
                 <Route path="/profil" element={<Profil />} />
-                <Route path="/articles" element={<Articles />} />
-                <Route path="/onearticle" element={<OneArticle />} />
+                <Route path="/articles/:id" element={<Articles />} />
+                <Route path="/onearticle/:id" element={<OneArticle />} />
                 <Route path="/acceuil" element={<Acceuil />} />
                 <Route path="/dashboad" element={<Acceuil />} />
             </Route>

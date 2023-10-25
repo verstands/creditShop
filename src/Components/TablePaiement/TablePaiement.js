@@ -25,23 +25,24 @@ const TablePaiement = ({ TABLE_ROWS }) => {
     return (
         <>
             <tbody>
-                {TABLE_ROWS.map(({ name, job, date }, index) => (
-                    <tr key={name} className="even:bg-blue-gray-50/50">
+                {TABLE_ROWS  && TABLE_ROWS.map((kf) => (
+                    <tr key={kf.pc} className="even:bg-blue-gray-50/50">
                         <td className="p-4">
                             <Typography variant="small" color="blue-gray" className="font-normal">
-                                {name}
+                                {kf.paiement_montant}
                             </Typography>
                         </td>
                         <td className="p-4">
                             <Typography variant="small" color="blue-gray" className="font-normal">
-                                {job}
+                                USD
                             </Typography>
                         </td>
                         <td className="p-4">
                             <Typography variant="small" color="blue-gray" className="font-normal">
-                                {date}
+                            {kf.paiement_date}
                             </Typography>
                         </td>
+                        
                     </tr>
                 ))}
             </tbody>

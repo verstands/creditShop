@@ -23,9 +23,9 @@ const Otbar = () => {
         setOpen(!open)
     }
     const showBtnDropDown = () => {
-        if(window.innerHeight <= 640){
+        if (window.innerHeight <= 640) {
             setOpenBtnDwn(!openBtnDwn)
-        }else{
+        } else {
             alert('ss')
         }
     }
@@ -44,7 +44,10 @@ const Otbar = () => {
                     <div className='flex items-center border-r-[1px] pr-[25px] gap-[25px]'>
                         <FaRegBell />
                         <FaEnvelope />
-                        <FaShoppingCart />
+                        <div className="flex items-center">
+                            <FaShoppingCart className="mr-2" />
+                            <span className="bg-red-500 text-white rounded-full h-5 w-5 flex items-center justify-center text-xs">1</span>
+                        </div>
                     </div>
                     <div className='flex items-center gap-[15px] relative' onClick={showDropDown}>
                         <p>Rabby Kkwele</p>

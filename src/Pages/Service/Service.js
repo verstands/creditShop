@@ -1,7 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { getTypeArticle } from '../../Apis/ServicesApi';
+import Spinner from '../../Components/Spinner/Spinner';
 
 const Service = () => {
+
+    const [getservices, setgetservices] = useState([]);
+    const [loading, setloading] = useState(true);
+
+    useEffect(() => {
+        getTypeArticle().then((membre) => {
+            setgetservices(membre);
+            setloading(false)
+        }).catch((error) => {
+            console.log(error);
+        });
+    }, []);
+
     return (
         <>
             <div className='pt-[25px] px-[25px] bg-[#dfe1e3]'>
@@ -15,33 +30,21 @@ const Service = () => {
                         </div>
                     </div>
                 </div>
+                {loading && <Spinner />}
                 <div className='grid grid-cols-1 md:grid-cols-3 gap-5 mt-[25px]'>
-                    <Link to='/articles'>
-                        <div className='h-[200px] w-[300px] mt-[5px] rounded-[8px] bg-white border-[2px] border-dark-purple justify-between hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease'>
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates, labore?</p>
-                    </Link>
-                    <Link>
-                        <div className='h-[200px] w-[300px] mt-[5px] rounded-[8px] bg-white border-[2px] border-dark-purple flex justify-between  hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease'></div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates, labore?</p>
-                    </Link>
-                    <Link>
-                        <div className='h-[200px] w-[300px] mt-[5px] rounded-[8px] bg-white border-[2px] border-dark-purple flex justify-between  hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease'></div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates, labore?</p>
-                    </Link>
-                    <Link>
-                        <div className='h-[200px] w-[300px] mt-[5px] rounded-[8px] bg-white border-[2px] border-dark-purple flex justify-between  hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease'></div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates, labore?</p>
-                    </Link>
-                    <Link>
-                        <div className='h-[200px] w-[300px] mt-[5px] rounded-[8px] bg-white border-[2px] border-dark-purple flex justify-between  hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease'></div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates, labore?</p>
-                    </Link>
-                    <Link>
-                        <div className='h-[200px] w-[300px] mt-[5px] rounded-[8px] bg-white border-[2px] border-dark-purple flex justify-between  hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease'></div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates, labore?</p>
-                    </Link>
+                    {
+                        getservices && getservices.map((ki) => {
+                            return (
+                                <Link to={`/articles/${ki.id}`}>
+                                    <div className='h-[200px] w-[300px] mt-[5px] rounded-[8px] bg-white border-[2px] border-dark-purple justify-between hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease'>
+                                    </div>
+                                    <h3 className='px-5'>{ki.nom_type_a}</h3>
+                                </Link>
+                            )
+                        })
+                    }
                 </div>
+
             </div>
         </>
     );
