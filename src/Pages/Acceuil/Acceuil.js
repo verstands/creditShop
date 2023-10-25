@@ -22,7 +22,7 @@ import {
 } from 'react-icons/fa';
 import TablePaiement from '../../Components/TablePaiement/TablePaiement';
 
-const Dashboad = () => {
+const Acceuil = () => {
   const TABLE_HEAD = ["Montant", "Devise", "Date", ""];
 
   const TABLE_ROWS = [
@@ -52,10 +52,11 @@ const Dashboad = () => {
       date: "04/10/21",
     },
   ];
+ 
   return (
     <div className='pt-[25px]  px-[25px] bg-[#dfe1e3]'>
       <div className='flex items-center justify-between'>
-        <h1 className='text-[#363738] text-[28px] leading-[34px] font-n'>Acceuil</h1>
+        <h1 className='text-[#363738] text-[28px] leading-[34px] font-n'>Accueil</h1>
         <div>
 
         </div>
@@ -125,4 +126,4 @@ const Dashboad = () => {
   )
 }
 
-export default Dashboad
+export default Acceuil

@@ -1,6 +1,5 @@
 import React from 'react'
-import {createBrowserRouter} from "react-router-dom";
-import Dashboad from '../Pages/Dashboad/Dashboad';
+import { Route, Routes } from 'react-router-dom';
 import Layout from '../Components/Layout/Layout';
 import Service from '../Pages/Service/Service';
 import Paiement from '../Pages/Paiement/Paiement';
@@ -10,53 +9,28 @@ import Page404 from '../Pages/404/Page404';
 import Login from '../Pages/Login/Login';
 import Articles from '../Pages/Article/Articles';
 import OneArticle from '../Pages/OneArticle/OneArticle';
+import SignUp from '../Pages/SignUp/SignUp';
+import Acceuil from '../Pages/Acceuil/Acceuil';
 
 
+const RoutePage = () => {
+    return (
+        <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/inscription" element={<SignUp />} />
+            <Route element={<Layout />}>
+                <Route path="/services" element={<Service />} />
+                <Route path="/paiements" element={<Paiement />} />
+                <Route path="/achatcredit" element={<AchatCredit />} />
+                <Route path="/profil" element={<Profil />} />
+                <Route path="/articles" element={<Articles />} />
+                <Route path="/onearticle" element={<OneArticle />} />
+                <Route path="/acceuil" element={<Acceuil />} />
+                <Route path="/dashboad" element={<Acceuil />} />
+            </Route>
+            <Route path="*" element={<Page404 />} />
+        </Routes>
+    );
+};
 
-const routes = createBrowserRouter([
-    {
-        path : '/',
-        element : <Layout />,
-        children : [
-            {
-                path : '/dashboad',
-                element : <Dashboad />
-            },
-            {
-                path: '/services',
-                element : <Service />
-            },
-            {
-                path: '/paiements',
-                element : <Paiement />
-            },
-            {
-                path: '/achatcredit',
-                element : <AchatCredit />
-            },
-            {
-                path: '/profil',
-                element : <Profil />
-            },
-            {
-                path: '/articles',
-                element : <Articles />
-            },
-            {
-                path: '/onearticle',
-                element : <OneArticle />
-            }
-            
-        ]
-    },
-    {
-        path : '/login',
-        element : <Login />
-    },
-    {
-        path: '*',
-        element : <Page404 />
-    }
-])
-
-export default routes
+export default RoutePage

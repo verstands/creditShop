@@ -1,15 +1,14 @@
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css'
 import './App.css';
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Route,
-  Link,
-} from "react-router-dom";
-import routes from './Routes/routes';
+import RoutePage from './Routes/routes';
 
 function App() {
   return (
-    <RouterProvider router={routes} />
+    <>
+      <RoutePage />
+      <ToastContainer />
+    </>
   );
 }
 
