@@ -20,7 +20,7 @@ const Sidebar = () => {
             </div>
             <div className='flex items-center gap-[15px] py-[20px]  border-white'>
                 <FaTachometerAlt color='white' />
-                <Link to='/dashboad' className='text-[14ax] leading-[20px] font-bold text-white'>Accueil</Link>
+                <Link to='/accueil' className='text-[14ax] leading-[20px] font-bold text-white'>Accueil</Link>
             </div>
             <div className='flex items-center gap-[15px] py-[20px]  border-white'>
                 <FaShoppingCart color='white' />
@@ -40,7 +40,7 @@ const Sidebar = () => {
             </div>
             <div className='flex items-center gap-[15px] py-[20px]  border-white'>
                 <FaSignOutAlt color='white' />
-                <Link to='/signout' className='text-[14px] leading-[20px] font-bold text-white'>Se deconnecter</Link>
+                <Link to='/Deconnexion' className='text-[14px] leading-[20px] font-bold text-white'>Se deconnecter</Link>
             </div>
         </div>
     )

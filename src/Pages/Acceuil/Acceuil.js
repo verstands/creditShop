@@ -65,10 +65,12 @@ const Acceuil = () => {
     });
   }, []);
 
+  const [messageA, setmessageA] = useState("")
   useEffect(() => {
     getPaiement().then((membre) => {
       setgetPaiements(membre);
       setloading(false)
+      setmessageA("Aucun paiement disponible")
     }).catch((error) => {
       console.log(error);
     });
@@ -88,28 +90,28 @@ const Acceuil = () => {
         <div className='h-[100px] rounded-[8px] bg-white border-l-[4px] border-dark-purple flex items-center justify-between px-[30px] hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease'>
           <div>
             <h2 className='text-[#B589DF] text-[11px] leading-[17px] font-bold'>Nombre commade</h2>
-            <h1 className='text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px]'>{getNbrCommandes}</h1>
+            <h1 className='text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px]'>{getNbrCommandes && getNbrCommandes}</h1>
           </div>
           <FaTachometerAlt />
         </div>
         <div className='h-[100px] rounded-[8px] bg-white border-l-[4px] border-dark-purple flex items-center justify-between px-[30px] hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease'>
           <div>
             <h2 className='text-[#B589DF] text-[11px] leading-[17px] font-bold'>Montant total du commande</h2>
-            <h1 className='text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px]'>{getSumCommandes} $</h1>
+            <h1 className='text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px]'>{getSumCommandes && getSumCommandes} $</h1>
           </div>
           <FaTachometerAlt />
         </div>
         <div className='h-[100px] rounded-[8px] bg-white border-l-[4px] border-yellow-500 flex items-center justify-between px-[30px] hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease'>
           <div>
             <h2 className='text-[#B589DF] text-[11px] leading-[17px] font-bold'>Achat credit</h2>
-            <h1 className='text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px]'>{getSumAchatCredits} Fc</h1>
+            <h1 className='text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px]'>{getSumAchatCredits && getSumAchatCredits} Fc</h1>
           </div>
           <FaTachometerAlt />
         </div>
         <div className='h-[100px] rounded-[8px] bg-white border-l-[4px] border-yellow-500 flex items-center justify-between px-[30px] hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease'>
           <div>
             <h2 className='text-[#B589DF] text-[11px] leading-[17px] font-bold'>Paiements</h2>
-            <h1 className='text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px]'>{getSumPaiements}$</h1>
+            <h1 className='text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px]'>{getSumPaiements && getSumPaiements}$</h1>
           </div>
           <FaTachometerAlt />
         </div>
@@ -126,25 +128,29 @@ const Acceuil = () => {
             </div>
           </div>
         </CardHeader>
-
-        <table className="w-full min-w-max table-auto text-left">
-          <thead>
-            <tr>
-              {TABLE_HEAD.map((head) => (
-                <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal leading-none opacity-70"
-                  >
-                    {head}
-                  </Typography>
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <TablePaiement TABLE_ROWS={getPaiements} />
-        </table>
+        {
+          getPaiements.length > 0 ? (
+            <table className="w-full min-w-max table-auto text-left">
+              <thead>
+                <tr>
+                  {TABLE_HEAD.map((head) => (
+                    <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal leading-none opacity-70"
+                      >
+                        {head}
+                      </Typography>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <TablePaiement TABLE_ROWS={getPaiements} />
+            </table>
+          ): <p className='text-center text-red-500 font-bold mt-10'>{messageA}</p>
+            
+        }
         {loading && (
           <Spinner />
         )}

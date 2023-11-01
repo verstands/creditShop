@@ -11,6 +11,11 @@ import Articles from '../Pages/Article/Articles';
 import OneArticle from '../Pages/OneArticle/OneArticle';
 import SignUp from '../Pages/SignUp/SignUp';
 import Acceuil from '../Pages/Acceuil/Acceuil';
+import DetailPanier from '../Pages/DetailPanier/DetailPanier';
+import Connexioin500 from '../Pages/500/Connexioin500';
+import FormulaireProfil from '../Pages/Profil/FormulaireProfil';
+import Mdpoublier from '../Pages/Mdpoublier';
+import Deconnexion from '../Pages/Deconnexion/Deconnexion';
 
 
 const RoutePage = () => {
@@ -25,10 +30,15 @@ const RoutePage = () => {
                 <Route path="/profil" element={<Profil />} />
                 <Route path="/articles/:id" element={<Articles />} />
                 <Route path="/onearticle/:id" element={<OneArticle />} />
-                <Route path="/acceuil" element={<Acceuil />} />
+                <Route path="/accueil" element={<Acceuil />} />
                 <Route path="/dashboad" element={<Acceuil />} />
+                <Route path="/detailpanier" element={<DetailPanier />} />
+                <Route path="/updateProfil" element={<FormulaireProfil />} />
             </Route>
             <Route path="*" element={<Page404 />} />
+            <Route path="/page500" element={<Connexioin500 />} />
+            <Route path="/Mdpoublier" element={<Mdpoublier />} />
+            <Route path="/Deconnexion" element={<Deconnexion />} />
         </Routes>
     );
 };

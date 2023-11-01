@@ -4,7 +4,9 @@ import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 
 let token = `Bearer ${localStorage.getItem("token")}`;
-let url = 'http://localhost:5000/api/';
+let url = 'https://apiclient.creditshop-africa.africa/api/';
+
+
 
 export const getNbrCommande = () => { 
     return axios.get(`${url}nbrcommande`,
@@ -20,9 +22,9 @@ export const getNbrCommande = () => {
     })
     .catch((error) => {
         if (error.response && error.response.status === 401) {
-            window.location.href = "/";
+            alert(error.response.data.message)
         } else {
-            toast.error(`${error.response.data.message}`)
+           alert(error.response.data.message)
         }
     });
 }
@@ -41,9 +43,10 @@ export const getSumCommande = () => {
     })
     .catch((error) => {
         if (error.response && error.response.status === 401) {
-            window.location.href = "/";
+            alert('countB')
+
         } else {
-            toast.error(`${error.response.data.message}`)
+           alert(error.response.data.message)
         }
     });
 }
@@ -63,9 +66,10 @@ export const getSumAchatCredit = () => {
     })
     .catch((error) => {
         if (error.response && error.response.status === 401) {
-            window.location.href = "/";
+            alert('countC')
+
         } else {
-            toast.error(`${error.response.data.message}`)
+           alert(error.response.data.message)
         }
     });
 }
@@ -84,9 +88,10 @@ export const getSumPaiement = () => {
     })
     .catch((error) => {
         if (error.response && error.response.status === 401) {
-            window.location.href = "/";
+            alert('countD')
+
         } else {
-            toast.error(`${error.response.data.message}`)
+           alert(error.response.data.message)
         }
     });
 }

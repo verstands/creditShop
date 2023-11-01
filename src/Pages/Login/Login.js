@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 import axios from 'axios';
 import { TEInput, TERipple } from "tw-elements-react";
+import { Link } from 'react-router-dom';
 
 
 const Login = () => {
@@ -10,7 +11,7 @@ const Login = () => {
     const [IsMobile, setIsMobile] = useState(false);
     const navigate = useNavigate();
     const [loading, setloading] = useState(false);
-    let url = 'http://localhost:5000/api/';
+    let url = 'https://apiclient.creditshop-africa.africa/api/';
     const form = useRef();
 
     function handleResize() {
@@ -29,32 +30,39 @@ const Login = () => {
         } else {
             window.removeEventListener('resize', handleResize)
         }
-
         return () => {
             window.removeEventListener('resize', handleResize)
         }
     }, [])
 
-
     const SignInBtn = (e) => {
         e.preventDefault()
         setloading(true)
+
+        const clientTel = form.current[0].value;
+        
+        if (!clientTel.startsWith("243") || clientTel.startsWith("0")) {
+            setloading(false);
+            toast.error("Le numéro de téléphone doit commencer par 243 et ne pas commencer par 0");
+            return;
+        }
+
         axios.post(`${url}login`,
             {
-                client_tel: form.current[0].value,
+                client_tel: clientTel,
                 client_mdp: form.current[1].value,
             }
         ).then((response) => {
             let token;
             if (response.data.token !== undefined) {
                 token = JSON.stringify(response.data.token);
-                  let tokenT = token.substring(1, token.length - 1);
-                  localStorage.setItem("token", tokenT);
-                  setloading(false);
-                  navigate('/acceuil');
-              } else {
+                let tokenT = token.substring(1, token.length - 1);
+                localStorage.setItem("token", tokenT);
+                setloading(false);
+                navigate('/dashboad');
+            } else {
                 token = '';
-              }
+            }
         }).catch((error) => {
             if (error?.response?.status === 401) {
                 setloading(false)
@@ -62,12 +70,15 @@ const Login = () => {
             } else if (error?.response?.status === 500) {
                 setloading(false)
                 toast.error(`Erreur de la connexion`)
-            } else if (error?.response?.status === 4041) {
+            } else if (error?.response?.status === 404) {
                 setloading(false)
                 toast.error(`Service non trouvée !!!`)
             } else if (error?.response?.status === 422) {
                 setloading(false)
                 toast.error(`${error.response.data.message}`)
+            } else if (error?.response?.status === 500) {
+                setloading(false)
+                toast.error(`erreur`)
             } else {
                 alert(error)
                 setloading(false)
@@ -107,7 +118,7 @@ const Login = () => {
                                             <label for="remember" class="text-gray-500 dark:text-gray-300">Souviens-toi de moi</label>
                                         </div>
                                     </div>
-                                    <a href="#" class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Mot de passe oublié</a>
+                                    <Link to="/Mdpoublier" class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Mot de passe oublié</Link>
                                 </div>
                                 <button type="submit" class="w-full text-white bg-primary-600 bg-dark-purple hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                                     <div class="flex items-center justify-center">

@@ -8,8 +8,9 @@ let url = 'https://apiclient.creditshop-africa.africa/api/';
 
 
 
-export const getTypeArticle = () => {
-    return axios.get(`${url}type_articles`,
+
+export const getProfil = () => {
+    return axios.get(`${url}profil`,
         {
             headers: {
                 Accept: 'application/json',
@@ -21,11 +22,6 @@ export const getTypeArticle = () => {
         return response.data.data;
     })
         .catch((error) => {
-            if (error.response && error.response.status === 401) {
-            alert('article')
-                
-            } else {
-                toast.error(`${error.response.data.message}`)
-            }
+            window.location.href = "/";
         });
 }

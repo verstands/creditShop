@@ -7,32 +7,32 @@ import {
     Card,
     CardHeader,
     Typography,
-    Button,
-    CardBody,
-    Chip,
-    CardFooter,
-    Avatar,
-    IconButton,
-    Tooltip,
-    Input,
-
 } from "@material-tailwind/react";
 import {
     FaCreditCard,
     FaShoppingCart
 } from 'react-icons/fa';
-import { getAchatCredit } from '../../Apis/AchatCreditApi';
+import { getAchatCredit, getAchatCreditCount } from '../../Apis/AchatCreditApi';
 import TableAchatCredit from '../../Components/TableAchatCredit/TableAchatCredit';
 
 const AchatCredit = () => {
     const TABLE_HEAD = ["Montant", "Devise", "Date", ""];
     const [getAchatCredits, setgetAchatCredits] = useState([]);
+    const [getAchatCreditCounts, setgetAchatCreditCounts] = useState(0);
     const [loading, setloading] = useState(true)
 
     useEffect(() => {
         getAchatCredit().then((membre) => {
             setgetAchatCredits(membre);
             setloading(false)
+        }).catch((error) => {
+            console.log(error);
+        });
+    }, []);
+
+    useEffect(() => {
+        getAchatCreditCount().then((membre) => {
+            setgetAchatCreditCounts(membre);
         }).catch((error) => {
             console.log(error);
         });
@@ -48,7 +48,7 @@ const AchatCredit = () => {
                                     <FaCreditCard className='' />
                                     <div className='ml-10'>
                                         <Typography variant="h5" color="blue-gray">
-                                            Achat credit :  <span className='border-4'>3000Fc</span>
+                                            Achat credit :  <span className='border-4'>{getAchatCreditCounts && getAchatCreditCounts.montant_ac}Fc</span>
                                         </Typography>
                                         <Typography variant="h9">
                                             Liste des achat credits
@@ -58,24 +58,30 @@ const AchatCredit = () => {
                             </div>
                         </div>
                     </CardHeader>
-                    <table className="w-full min-w-max table-auto text-left">
-                        <thead>
-                            <tr>
-                                {TABLE_HEAD.map((head) => (
-                                    <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
-                                        <Typography
-                                            variant="small"
-                                            color="blue-gray"
-                                            className="font-normal leading-none opacity-70"
-                                        >
-                                            {head}
-                                        </Typography>
-                                    </th>
-                                ))}
-                            </tr>
-                        </thead>
-                        <TableAchatCredit TABLE_ROWS={getAchatCredits} />
-                    </table>
+                    {
+                        setgetAchatCredits.length > 0 ? (
+                            <table className="w-full min-w-max table-auto text-left">
+                                <thead>
+                                    <tr>
+                                        {TABLE_HEAD.map((head) => (
+                                            <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                                                <Typography
+                                                    variant="small"
+                                                    color="blue-gray"
+                                                    className="font-normal leading-none opacity-70"
+                                                >
+                                                    {head}
+                                                </Typography>
+                                            </th>
+                                        ))}
+                                    </tr>
+                                </thead>
+                                <TableAchatCredit TABLE_ROWS={getAchatCredits} />
+                            </table>
+                        ) : (
+                            <p className='text-center text-red-500 font-bold mt-10'>Aucun paiement disponible</p>
+                        )
+                    }
                 </Card>
             </div>
         </div>
