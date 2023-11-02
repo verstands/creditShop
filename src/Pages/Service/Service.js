@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getTypeArticle } from '../../Apis/ServicesApi';
 import Spinner from '../../Components/Spinner/Spinner';
+import {FaSearch} from 'react-icons/fa';
 
 const Service = () => {
 
@@ -26,9 +27,10 @@ const Service = () => {
         <>
             <div className='pt-[25px] px-[25px] bg-[#dfe1e3]'>
                 <div className='md:flex items-center justify-between'>
-                    <h1 className='text-[rgb(90,92,105)] text-[28px] leading-[34px] font-normal'>
+                    <h1 className='text-[rgb(90,92,105)] text-center text-[28px] leading-[34px] font-normal'>
                         Les services
                     </h1>
+                    <hr className='mb-3'/>
                     <div>
                         <div>
                             <input type="text" value={searchTerm} onChange={handleSearch} name="password" id="password" placeholder="Recherche service" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />

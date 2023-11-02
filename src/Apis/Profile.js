@@ -22,6 +22,6 @@ export const getProfil = () => {
         return response.data.data;
     })
         .catch((error) => {
-            window.location.href = "/";
+            
         });
 }

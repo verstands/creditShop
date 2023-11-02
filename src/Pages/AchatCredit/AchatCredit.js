@@ -14,12 +14,19 @@ import {
 } from 'react-icons/fa';
 import { getAchatCredit, getAchatCreditCount } from '../../Apis/AchatCreditApi';
 import TableAchatCredit from '../../Components/TableAchatCredit/TableAchatCredit';
+import { useNavigate } from 'react-router-dom';
 
 const AchatCredit = () => {
     const TABLE_HEAD = ["Montant", "Devise", "Date", ""];
     const [getAchatCredits, setgetAchatCredits] = useState([]);
     const [getAchatCreditCounts, setgetAchatCreditCounts] = useState(0);
     const [loading, setloading] = useState(true)
+    let token = `Bearer ${localStorage.getItem("token")}`;
+    const navigate = useNavigate();
+
+    if (!localStorage.getItem("token")) {
+        navigate('/login')
+    }
 
     useEffect(() => {
         getAchatCredit().then((membre) => {
@@ -37,6 +44,7 @@ const AchatCredit = () => {
             console.log(error);
         });
     }, []);
+
     return (
         <div className='pt-[25px]  px-[25px] bg-[#F8F9FC]'>
             <div>
@@ -48,10 +56,18 @@ const AchatCredit = () => {
                                     <FaCreditCard className='' />
                                     <div className='ml-10'>
                                         <Typography variant="h5" color="blue-gray">
-                                            Achat credit :  <span className='border-4'>{getAchatCreditCounts && getAchatCreditCounts.montant_ac}Fc</span>
+                                            Achat credit : {parseInt(getAchatCreditCounts).length < 0 ? <span className='border-4'>0 Fc</span> : <span className='border-4'>{getAchatCreditCounts && getAchatCreditCounts.montant_ac}Fc</span>}
                                         </Typography>
                                         <Typography variant="h9">
                                             Liste des achat credits
+                                        </Typography>
+                                        <Typography variant="h9">
+                                            <button type="submit" class="w-full text-white bg-primary-600 bg-dark-purple hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                                                <div class="flex items-center justify-center">
+                                                    {loading && <div class="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white-900 mr-2"></div>}
+                                                    <span class="text-center">Achat credit</span>
+                                                </div>
+                                            </button>
                                         </Typography>
                                     </div>
                                 </div>

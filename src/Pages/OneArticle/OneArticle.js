@@ -11,12 +11,19 @@ import { getArticleOne } from '../../Apis/Articles';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Spinner from '../../Components/Spinner/Spinner';
+import { toast } from "react-toastify";
 
 
 const OneArticle = () => {
     const [articleOne, setarticleOne] = useState([])
     const [loading, setloading] = useState(true)
     const params = useParams();
+    const [getarticles, setarticles] = useState([]);
+    const [loadingA, setloadingA] = useState(false);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [inputList, setInputList] = useState([]);
+    const [sommeTotale, setSommeTotale] = useState(0);
+    const [isAddingToCart, setIsAddingToCart] = useState(false);
 
     useEffect(() => {
         getArticleOne(params.id).then((membre) => {
@@ -26,17 +33,75 @@ const OneArticle = () => {
             console.log(error);
         });
     }, []);
+
+    const addToCart = (article) => {
+        if (isAddingToCart) {
+          return;
+        }
+    
+        setIsAddingToCart(true);
+    
+        const existingItemIndex = inputList.findIndex(
+          (item) => item.produit === article.article_nom
+        );
+        toast.success("L'article a été ajouté au panier avec succès !");
+        
+        if (existingItemIndex !== -1) {
+          setInputList((prevInputList) => {
+            const updatedInputList = prevInputList.map((item, index) => {
+              if (index === existingItemIndex) {
+                const updatedQuantity = item.quantite + 1;
+                const updatedTotal = article.article_prix * updatedQuantity;
+    
+                return {
+                  ...item,
+                  quantite: updatedQuantity,
+                  total: updatedTotal,
+                };
+              }
+              return item;
+            });
+    
+            localStorage.setItem("panier", JSON.stringify(updatedInputList));
+            const total = updatedInputList.reduce((acc, item) => acc + item.total, 0);
+            setSommeTotale(total);
+            setIsAddingToCart(false);
+            return updatedInputList;
+          });
+        } else {
+          const newCartItem = {
+            image: article.article_image,
+            produit: article.article_nom,
+            prix: article.article_prix,
+            total: article.article_prix,
+            quantite: 1,
+          };
+    
+          setInputList((prevInputList) => {
+            const updatedInputList = [...prevInputList, newCartItem];
+            localStorage.setItem("panier", JSON.stringify(updatedInputList));
+            const total = updatedInputList.reduce((acc, item) => acc + item.total, 0);
+            setSommeTotale(total);
+            setIsAddingToCart(false);
+            return updatedInputList;
+          });
+        }
+    }
     return (
         <>
             <div className='pt-[25px]  px-[25px] bg-[#F8F9FC]'>
                 <div className='flex items-center justify-between'>
-                    <h1 className='text-[#5a5c69] text-[28px] leading-[34px] font-normal'>Article : {articleOne.article_nom}</h1>
+                   
                 </div>
                 {
                     articleOne && (
                         <div className="md:flex border-black mt-4">
                             <div className="md:w-6/12 bg-white p-10 rounded-sm">
-                                <img src="images/images.png" width='350' alt="images" />
+                                <img 
+                                 src={`https://back-office.creditshop-africa.africa/activite_image/articles/${articleOne.article_image}`} 
+                                 alt="images"
+                                 className='h-[350px] w-[400px] mt-[5px] rounded-[8px]  border-green justify-between hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease'
+                                 />
                             </div>
                             <div className="md:w-6/12 bg-white p-10 rounded-sm">
                                 <div>
@@ -91,7 +156,7 @@ const OneArticle = () => {
                                         </div>
                                         <div className='flex mt-6 items-center justify-center mt-1 bg-green-700 h-[40px] w-[155px] rounded text-white'>
                                             <FaShoppingCart />
-                                            <button className=''> Ajouter au panier</button>
+                                            <button className='' onClick={() => addToCart(articleOne)}> Ajouter au panier</button>
                                         </div>
                                         <div className='flex items-center gap-2 mt-9'>
                                             <p className='font-bold '>Partager sur : </p>

@@ -31,25 +31,10 @@ const DetailPanier = () => {
   const [loadingValide, setloadingValide] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
 
-  useEffect(() => {
-    getPanier().then((membre) => {
-      setpaniers(membre);
-      setloading(false)
-    }).catch((error) => {
-      console.log(error);
-    });
-  }, []);
 
   const [Tot, setTot] = useState(0);
   const [RadioPaiement, setRadioPaiement] = useState('1')
 
-  useEffect(() => {
-    getPanierTotal().then((membre) => {
-      setTot(membre);
-    }).catch((error) => {
-      console.log(error);
-    });
-  }, []);
 
   const deletePanierItem = async (id) => {
     try {

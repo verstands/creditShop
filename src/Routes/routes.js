@@ -16,13 +16,14 @@ import Connexioin500 from '../Pages/500/Connexioin500';
 import FormulaireProfil from '../Pages/Profil/FormulaireProfil';
 import Mdpoublier from '../Pages/Mdpoublier';
 import Deconnexion from '../Pages/Deconnexion/Deconnexion';
+import Dash from '../Pages/Dash/dash';
+import PaiementFormulaire from '../Pages/PaiementFormulaire/PaiementFormulaire';
 
 
 const RoutePage = () => {
     return (
         <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/inscription" element={<SignUp />} />
+            {/*  routes private*/}
             <Route element={<Layout />}>
                 <Route path="/services" element={<Service />} />
                 <Route path="/paiements" element={<Paiement />} />
@@ -34,7 +35,12 @@ const RoutePage = () => {
                 <Route path="/dashboad" element={<Acceuil />} />
                 <Route path="/detailpanier" element={<DetailPanier />} />
                 <Route path="/updateProfil" element={<FormulaireProfil />} />
+                <Route path="/PaiementFormulaire" element={<PaiementFormulaire />} />
             </Route>
+            {/*  routes public */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Dash />} />
+            <Route path="/inscription" element={<SignUp />} />
             <Route path="*" element={<Page404 />} />
             <Route path="/page500" element={<Connexioin500 />} />
             <Route path="/Mdpoublier" element={<Mdpoublier />} />

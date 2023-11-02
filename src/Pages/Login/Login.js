@@ -91,8 +91,8 @@ const Login = () => {
             <section class="bg-gray-50 dark:bg-gray-900">
                 <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
                     <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-                        <img class="w-11 h-11 rounded mr-2" src="images/logos.png" alt="logo" />
-                        CreditShop
+                        <img class="w-14 h-14 rounded mr-2" src="images/logos.png" alt="logo" />
+                        <p className='text-dark-purple'>CreditShop</p>
                     </a>
 
                     <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -111,12 +111,8 @@ const Login = () => {
                                 </div>
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="remember" aria-describedby="remember" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" required="" />
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="remember" class="text-gray-500 dark:text-gray-300">Souviens-toi de moi</label>
-                                        </div>
+                                        
+                                        
                                     </div>
                                     <Link to="/Mdpoublier" class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Mot de passe oublié</Link>
                                 </div>
@@ -126,9 +122,6 @@ const Login = () => {
                                         <span class="text-center">Se connecter</span>
                                     </div>
                                 </button>
-                                <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                                    Vous n'avez pas encore de compte?  <a href="/inscription" class="font-medium text-primary-600 hover:underline dark:text-primary-500">S'inscrire</a>
-                                </p>
                             </form>
                         </div>
                     </div>
