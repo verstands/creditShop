@@ -24,7 +24,14 @@ import TablePanier from '../../Components/TablePanier/TablePanier';
 import { getProfil } from '../../Apis/Profile';
 import { getSystementPaiement } from '../../Apis/PaiiementApi';
 import Spinner from '../../Components/Spinner/Spinner';
+import { addCommande } from '../../Apis/CommandeApi';
+import Swal from "sweetalert2";
+import axios from "axios";
 
+
+
+let token = `Bearer ${localStorage.getItem("token")}`;
+let url = 'https://apiclient.creditshop-africa.africa/api/';
 const DetailPanier = () => {
   const [paniers, setpaniers] = useState([]);
   const [loading, setloading] = useState(true)
@@ -64,25 +71,27 @@ const DetailPanier = () => {
 
 
   const ValiderPaiement = () => {
-    if (RadioPaiement === '2') {
-      toast.error(`la partie virement n'est pas encore disponimble`)
-    } else {
-      const phone = number.client_tel;
-      const devise = "USD";
-      const montant = sommeTotale;
-      const refernce = "CS-" + Date.now() + Math.random().toString(36).substr(2, 9);
-      setloadingValide(true)
-      if(montant <= 0){
-        toast.error(`Imposible de passer une commade avec 0$`)
-        setloadingValide(false);
-      }else{
-        getSystementPaiement(devise, montant, phone, refernce)
-        setloadingValide(false);
-      }
-    }
-    
+    setloadingValide(true)
 
-  
+    if (panier.length === 0) {
+      Swal.fire({
+        icon: 'error',
+        text: `Votre panier est vide`,
+        confirmButtonText: 'OK'
+      });
+      setloadingValide(false);
+      return;
+    }
+
+    panier.map((pk) => {
+      const data = {
+        aac_id_articles: pk.id,
+        aac_nom_article: pk.produit,
+        aac_prix_article: pk.prix
+      }
+      addCommande(data)
+    })
+    setloadingValide(false)
   }
 
   const [panier, setPanier] = useState([]);
@@ -126,7 +135,7 @@ const DetailPanier = () => {
                 <hr />
               </CardHeader>
               <div className='grid grid-cols-1 md:grid-cols-2'>
-                <div className='w-8/13'>
+                <div className='mb-10'>
                   <table className="w-full min-w-max table-auto text-left">
                     <thead>
                       <tr>
@@ -157,29 +166,17 @@ const DetailPanier = () => {
                         <h6 className="text-xl font-semibold mb-2">TOTAL:</h6>
                         <h6 className="text-xl font-semibold mb-2">{sommeTotale} $</h6>
                       </div>
-                      <hr className='mb-4' />
-                      <div className=''>
-                        <h6 className="text-xl font-semibold mb-2">PAIEMENT</h6>
-                        <div className='flex gap-5 items-center mb-3'>
-                          <input type="radio" name='t' checked={RadioPaiement === '1'} value='1' onChange={handleChangeRadio} />
-                          <p>Mobile money</p>
-                        </div>
-                        <div className='flex gap-5 items-center'>
-                          <input type="radio" name='t' checked={RadioPaiement === '2'} value='2' onChange={handleChangeRadio} />
-                          <p>Virement</p>
-                        </div>
-
-                      </div>
                       <hr className='mb-2' />
-                      <button onClick={ValiderPaiement} type="submit" class="w-full text-white bg-primary-600 bg-dark-purple hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                        <div class="flex items-center justify-center">
-                          {loadingValide && <div class="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white-900 mr-2"></div>}
-                          <span class="text-center"> Passer la commade</span>
-                        </div>
-                      </button>
                     </div>
                   </div>
                 </div>
+                <br />
+                <button onClick={ValiderPaiement} type="submit" class="w-full text-white bg-primary-600 bg-dark-purple hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                  <div class="flex items-center justify-center">
+                    {loadingValide && <div class="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white-900 mr-2"></div>}
+                    <span class="text-center"> Valider la commande</span>
+                  </div>
+                </button>
               </div>
             </Card>
           </div>

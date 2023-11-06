@@ -12,9 +12,8 @@ const PaiementFormulaire = () => {
 
     const PayBtn = (e) => {
         e.preventDefault()
-        const data = {
-            paiement_montant : form.current[0].value
-        }
+        setloading(true)
+        const data = `USD/${form.current[0].value}/243822662472/sdf`
         addPayer(data)
     }
 

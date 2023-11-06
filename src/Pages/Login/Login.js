@@ -59,7 +59,7 @@ const Login = () => {
                 let tokenT = token.substring(1, token.length - 1);
                 localStorage.setItem("token", tokenT);
                 setloading(false);
-                navigate('/dashboad');
+                navigate('/');
             } else {
                 token = '';
             }
@@ -111,7 +111,7 @@ const Login = () => {
                                 </div>
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-start">
-                                        
+
                                         
                                     </div>
                                     <Link to="/Mdpoublier" class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Mot de passe oublié</Link>

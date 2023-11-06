@@ -51,35 +51,19 @@ export const getSystementPaiement = (devise, montant, phone, refernce) => {
 }
 
 export const addPayer = (data) => {
-
-    Swal.fire({
-        title: `Êtes-vous sûr de vouloir effectuer un paiement de ${data.paiement_montant} $ ?`,
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Oui, supprimer',
-        cancelButtonText: 'Non, annuler'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            axios
-            .post(`${url}paiement`,data, {
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                    Authorization: token
-                }
-            })
-            .then((response) => {
-                Swal.fire({
-                    icon: 'success',
-                    text: `${response.data.message}`,
-                    confirmButtonText: 'OK'
-                });
-
-            })
-            .catch((error) => {
-                alert(error);
-            });
-        }
-    });
+    axios
+        .get(`${url}apipaiement/${data}`, {
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: token
+            }
+        })
+        .then((response) => {
+            toast.success(`Transaction envoyée avec succès. Veuillez valider le push message`)
+        })
+        .catch((error) => {
+            alert(error);
+        });
 
 }

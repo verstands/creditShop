@@ -34,7 +34,9 @@ const Paiement = () => {
   const navigate = useNavigate();
   
   
-
+  if(!localStorage.getItem("token")){
+    navigate('/login')
+  }
   const [messageA, setmessageA] = useState("")
   useEffect(() => {
     getPaiement().then((membre) => {

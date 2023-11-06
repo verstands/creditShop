@@ -95,3 +95,46 @@ export const getSumPaiement = () => {
         }
     });
 }
+
+export const getcountMonCompte = () => { 
+    return axios.get(`${url}countMonCompte`,
+        {
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: token
+            }
+        }
+    ).then((response) => {
+        return response.data.data;
+    })
+    .catch((error) => {
+        if (error.response && error.response.status === 401) {
+            window.location.href='/login'
+        } else {
+           alert(error.response.data.message)
+        }
+    });
+}
+
+
+export const getcountMonCompteProduit = () => { 
+    return axios.get(`${url}countMonCompteProduit`,
+        {
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: token
+            }
+        }
+    ).then((response) => {
+        return response.data.data;
+    })
+    .catch((error) => {
+        if (error.response && error.response.status === 401) {
+            window.location.href='/login'
+        } else {
+           alert(error.response.data.message)
+        }
+    });
+}

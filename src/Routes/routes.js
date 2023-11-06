@@ -18,7 +18,8 @@ import Mdpoublier from '../Pages/Mdpoublier';
 import Deconnexion from '../Pages/Deconnexion/Deconnexion';
 import Dash from '../Pages/Dash/dash';
 import PaiementFormulaire from '../Pages/PaiementFormulaire/PaiementFormulaire';
-
+import Compte from '../Pages/Compte/Compte';
+import Produitts from '../Pages/Produit/Produitts';
 
 const RoutePage = () => {
     return (
@@ -36,6 +37,8 @@ const RoutePage = () => {
                 <Route path="/detailpanier" element={<DetailPanier />} />
                 <Route path="/updateProfil" element={<FormulaireProfil />} />
                 <Route path="/PaiementFormulaire" element={<PaiementFormulaire />} />
+                <Route path="/MonCompte" element={<Compte />} />
+                <Route path="/Produits" element={<Produitts />} />
             </Route>
             {/*  routes public */}
             <Route path="/login" element={<Login />} />

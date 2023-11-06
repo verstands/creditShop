@@ -22,7 +22,7 @@ const Otbar = () => {
   const [panier, setPanier] = useState([]);
   const [nombreProduits, setNombreProduits] = useState(0);
   const [sommeTotale, setSommeTotale] = useState(0);
-  const [profil, setProfil] = useState({ client_prenom: '', client_nom: '' });
+  const [profil, setProfil] = useState([]);
   let token = `Bearer ${localStorage.getItem("token")}`;
 
 
@@ -53,16 +53,11 @@ const Otbar = () => {
   }, [panier]);
 
   useEffect(() => {
-    const fetchProfil = async () => {
-      try {
-        const profil = await getProfil(); // Remplacer cette ligne par votre méthode pour récupérer le profil
-        setProfil(profil);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchProfil();
+    getProfil().then((membre) => {
+      setProfil(membre);
+    }).catch((error) => {
+      console.log(error);
+    });
   }, []);
 
   return (
@@ -81,42 +76,45 @@ const Otbar = () => {
           )
         }
         <div className='flex items-center justify-between gap-[15px] relative'>
-          <div className='flex items-center border-r-[1px] pr-[25px] gap-[25px]'>
-            <FaEnvelope size={30} />
-            <div className='flex items-center'>
-              <Link to='/detailpanier'>
-                <FaShoppingCart size={30} className='mr-2' />
-              </Link>
-              <Link to='/detailpanier'>
-                
-              </Link>
-            </div>
-          </div>
-          <div className='flex items-center gap-[15px] relative' onClick={showDropDown}>
-            <div className='flex justify-end cursor-pointer'>
-              <FaUserCircle className='text-[40px]' />
-            </div>
-            {open && localStorage.getItem("token") && (
-              <div className='bg-white border h-[120px] w-[150px] absolute bottom-[-135px] z-20 right-0 pt-[15px] pl-[15px]'>
-                <p className='flex gap-3'>
-                  <Link to='/profil' className='hover:text-dark-purple font-semibold'>
-                    Profile
-                  </Link>
-                </p>
-                <p className='flex gap-3'>
-                  <Link to='/parametre' className='hover:text-dark-purple font-semibold'>
-                    Parametre
-                  </Link>
-                </p>
-                <p className='flex gap-3'>
-                  <Link to='/Deconnexion' className='hover:text-dark-purple font-semibold'>
-                    Se deconnecter
-                  </Link>
-                </p>
-              </div>
-            )}
-          </div>
-        </div>
+  <div className='flex items-center border-r-[1px] pr-[25px] gap-[25px]'>
+    <FaEnvelope size={30} />
+    <div className='flex items-center'>
+      <Link to='/detailpanier'>
+        <FaShoppingCart size={30} className='mr-2' />
+      </Link>
+      <Link to='/detailpanier'>
+        {/* Autre contenu ici */}
+      </Link>
+    </div>
+  </div>
+  <div>
+    
+  </div>
+  <div className='flex items-center gap-[15px] relative' onClick={showDropDown}>
+    {open && localStorage.getItem("token") && (
+      <div className='bg-white border h-[120px] w-[150px] absolute bottom-[-135px] z-20 right-0 pt-[15px] pl-[15px]'>
+        <p className='flex gap-3'>
+          <Link to='/profil' className='hover:text-dark-purple font-semibold'>
+            Profile
+          </Link>
+        </p>
+        <p className='flex gap-3'>
+          <Link to='/parametre' className='hover:text-dark-purple font-semibold'>
+            Parametre
+          </Link>
+        </p>
+        <p className='flex gap-3'>
+          <Link to='/Deconnexion' className='hover:text-dark-purple font-semibold'>
+            Se deconnecter
+          </Link>
+        </p>
+      </div>
+    )}
+    <div className='flex justify-end cursor-pointer'>
+      <FaUserCircle className='text-[40px]' />
+    </div>
+  </div>
+</div>
       </div>
 
     </>

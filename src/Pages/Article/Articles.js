@@ -96,6 +96,7 @@ const Articles = () => {
                     prix: article.article_prix,
                     total: article.article_prix,
                     quantite: 1,
+                    id : article.id
                 };
 
                 setInputList((prevInputList) => {
