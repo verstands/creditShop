@@ -18,6 +18,7 @@ import {
   FaTachometerAlt,
   FaMoneyBill,
   FaShoppingCart,
+  FaBox,
 } from 'react-icons/fa';
 import { deletePanier, getPanier, getPanierCount, getPanierTotal } from '../../Apis/PanierApi';
 import TablePanier from '../../Components/TablePanier/TablePanier';
@@ -72,7 +73,6 @@ const DetailPanier = () => {
 
   const ValiderPaiement = () => {
     setloadingValide(true)
-
     if (panier.length === 0) {
       Swal.fire({
         icon: 'error',
@@ -119,69 +119,75 @@ const DetailPanier = () => {
   const TABLE_HEAD = ["Image", "Produit", "Prix", "Quantite", "Total", "Retirer"];
   return (
     <>
-      <div className='pt-[25px] px-[25px] bg-[#dfe1e3]'>
-        <div className='pt-[25px]  px-[25px] bg-[#F8F9FC]'>
-          <div>
-            <Card className="h-full w-full overflow-scroll">
-              <CardHeader floated={false} shadow={false} className="rounded-none">
-                <div className="mb-4 flex flex-col justify-between gap-8 md:flex-row md:items-center">
-                  <div className='flex items-center gap-3'>
-                    <FaShoppingCart />
-                    <Typography variant="h5" color="blue-gray">
-                      Mon panier
-                    </Typography>
-                  </div>
-                </div>
-                <hr />
-              </CardHeader>
-              <div className='grid grid-cols-1 md:grid-cols-2'>
-                <div className='mb-10'>
-                  <table className="w-full min-w-max table-auto text-left">
-                    <thead>
-                      <tr>
-                        {TABLE_HEAD.map((head) => (
-                          <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
-                            <Typography
-                              variant="small"
-                              color="blue-gray"
-                              className="font-normal leading-none opacity-70"
-                            >
-                              {head}
-                            </Typography>
-                          </th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <TablePanier TABLE_ROWSS={panier} deletePanierItem={deletePanierItem} />
-                  </table>
-                  {loading && (
-                    <Spinner />
-                  )}
-                </div>
-                <div className='w-4/13'>
-                  <h4 className="text-xl font-semibold mb-2">RÉSUMÉ DU PANIER :</h4>
-                  <div className="bg-gray-300 shadow-lg rounded-lg overflow-hidden">
-                    <div className="p-6">
-                      <div className='flex items-center justify-between'>
-                        <h6 className="text-xl font-semibold mb-2">TOTAL:</h6>
-                        <h6 className="text-xl font-semibold mb-2">{sommeTotale} $</h6>
+      {
+        panier.length > 0 ?
+          <div className='pt-[25px] px-[25px] bg-[#dfe1e3]'>
+            <div className='pt-[25px]  px-[25px] bg-[#F8F9FC]'>
+              <div>
+                <Card className="h-full w-full overflow-scroll">
+                  <CardHeader floated={false} shadow={false} className="rounded-none">
+                    <div className="mb-4 flex flex-col justify-between gap-8 md:flex-row md:items-center">
+                      <div className='flex p-2 items-center gap-3'>
+                        <FaBox />
+                        <Typography variant="h5" color="blue-gray">
+                          Mon produits
+                        </Typography>
                       </div>
-                      <hr className='mb-2' />
                     </div>
+                    <hr />
+                  </CardHeader>
+                  <div className='grid grid-cols-1 md:grid-cols-2'>
+                    <div className='mb-10'>
+                      <table className="w-full min-w-max table-auto text-left">
+                        <thead>
+                          <tr>
+                            {TABLE_HEAD.map((head) => (
+                              <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                                <Typography
+                                  variant="small"
+                                  color="blue-gray"
+                                  className="font-normal leading-none opacity-70"
+                                >
+                                  {head}
+                                </Typography>
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <TablePanier TABLE_ROWSS={panier} deletePanierItem={deletePanierItem} />
+                      </table>
+                      {loading && (
+                        <Spinner />
+                      )}
+                    </div>
+                    <div className='w-4/13'>
+                      <h4 className="text-xl font-semibold mb-2">RÉSUMÉ DU PANIER :</h4>
+                      <div className="bg-gray-300 shadow-lg rounded-lg overflow-hidden">
+                        <div className="p-6">
+                          <div className='flex items-center justify-between'>
+                            <h6 className="text-xl font-semibold mb-2">TOTAL:</h6>
+                            <h6 className="text-xl font-semibold mb-2">{sommeTotale} $</h6>
+                          </div>
+                          <hr className='mb-2' />
+                        </div>
+                      </div>
+                    </div>
+                    <br />
+                    <button onClick={ValiderPaiement} type="submit" class="w-full text-white bg-primary-600 bg-dark-purple hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                      <div class="flex items-center justify-center">
+                        {loadingValide && <div class="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white-900 mr-2"></div>}
+                        <span class="text-center"> Valider la commande</span>
+                      </div>
+                    </button>
                   </div>
-                </div>
-                <br />
-                <button onClick={ValiderPaiement} type="submit" class="w-full text-white bg-primary-600 bg-dark-purple hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                  <div class="flex items-center justify-center">
-                    {loadingValide && <div class="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white-900 mr-2"></div>}
-                    <span class="text-center"> Valider la commande</span>
-                  </div>
-                </button>
+                </Card>
               </div>
-            </Card>
+            </div>
           </div>
-        </div>
-      </div>
+          : <div className='flex items-center justify-center'>
+            <p>Vous n'avez pas de proudit</p>
+          </div>
+      }
 
       {isOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-50">

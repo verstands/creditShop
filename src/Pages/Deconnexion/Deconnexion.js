@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { toast } from "react-toastify";
 
 const Deconnexion = () => {
     const navigate = useNavigate();
@@ -8,6 +9,7 @@ const Deconnexion = () => {
     let token = `Bearer ${localStorage.getItem("token")}`;
 
     useEffect(() => {
+        toast.success(`Vous etes deconnecter`);
         localStorage.removeItem('token')
         navigate('/')
         axios.get(`${url}SignOut`,

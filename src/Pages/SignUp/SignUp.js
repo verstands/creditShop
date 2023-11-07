@@ -45,49 +45,70 @@ const SignUp = () => {
   const Save = (e) => {
     e.preventDefault()
     setloading(true)
+
+    if (!form.current[9].value.startsWith("243") || form.current[9].value.startsWith("0")) {
+      setloading(false);
+      toast.error("Le numéro de téléphone doit commencer par 243 et ne pas commencer par 0");
+      return;
+    }
     const postData = {
-      client_tel: form.current[4].value,
-      client_mdp: form.current[5].value,
+      client_tel: form.current[9].value,
+      client_mdp: form.current[10].value,
       client_nom: form.current[0].value,
       client_post: form.current[1].value,
       client_prenom: form.current[2].value,
       client_carte: 0,
-      client_adresse: form.current[3].value,
-      client_commune: form.current[6].value,
+      client_adresse: form.current[3].value + form.current[5].value + form.current[6].value + form.current[7].value,
+      client_commune: form.current[4].value,
       client_date_creation: 0,
       client_agent_activa: 0,
       client_activation: 0,
       client_profil: 0,
       client_agent: 0,
       client_etat: 1,
-      client_province: form.current[7].value,
+      client_province: form.current[8].value,
     }
-    axios.post(`${url}SignUpUser`, postData,
-      {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: token
-        }
-      }).then((response) => {
-        setloading(false);
-        navigate('/');
-      }).catch((error) => {
+    const mpd = form.current[10].value
+    if (mpd.length > 4) {
+      axios.post(`${url}SignUpUser`, postData,
+        {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: token
+          }
+        }).then((response) => {
+          let token;
+            if (response.data.token !== undefined) {
+                token = JSON.stringify(response.data.token);
+                let tokenT = token.substring(1, token.length - 1);
+                localStorage.setItem("token", tokenT);
+                setloading(false);
+                toast.success(`Vous etes connecter`);
+                navigate('/services');
+            } else {
+                token = '';
+            }
+        }).catch((error) => {
 
-        if (error.response && error.response.status === 422) {
-          toast.error(`${error.response.data.message}`)
-          setloading(false)
-        } else if (error.response.status === 500) {
-          toast.error(`${error.response.data.message}`)
-          setloading(false)
-        } else if (error.response.status === 401) {
-          window.location.href = "/";
-        } else {
-          toast.error(`${error.response.data.message}`)
-          setloading(false)
+          if (error.response && error.response.status === 422) {
+            toast.error(`${error.response.data.message}`)
+            setloading(false)
+          } else if (error.response.status === 500) {
+            toast.error(`${error.response.data.message}`)
+            setloading(false)
+          } else if (error.response.status === 401) {
+            window.location.href = "/";
+          } else {
+            toast.error(`${error.response.data.message}`)
+            setloading(false)
 
-        }
-      })
+          }
+        })
+    } else {
+      toast.error(`Votre mot de passe doit avoir 4 caractere`)
+      setloading(false)
+    }
 
   }
   return (
@@ -107,19 +128,48 @@ const SignUp = () => {
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
                     <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom</label>
-                    <input type="text" name="nom" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="SD" required="" />
+                    <input type="text" name="nom" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
                   </div>
                   <div>
                     <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Postnom</label>
-                    <input type="text" name="postnom" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="SD" required="" />
+                    <input type="text" name="postnom" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
                   </div>
                   <div>
                     <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prenom</label>
-                    <input type="text" name="prenom" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="SD" required="" />
+                    <input type="text" name="prenom" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
                   </div>
                   <div>
-                    <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Adresse</label>
-                    <textarea type="text" name="adresse" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+                    <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Avenue</label>
+                    <input type="text" name="text" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
+                  </div>
+                  <div>
+                    <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Numero parceille</label>
+                    <input type="text" name="text" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
+                  </div>
+                  <div>
+                    <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quartier</label>
+                    <input type="text" name="text" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
+                  </div>
+                  <div>
+                    <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Commune</label>
+                    <input type="text" name="text" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
+                  </div>
+                  <div>
+                    <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ville</label>
+                    <input type="text" name="text" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
+                  </div>
+                  <div>
+                    <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Province</label>
+                    <input type="text" name="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
+                  </div>
+                  <div>
+                    <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pays</label>
+                    <select class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="" id="">
+                      <option value="rdc">RDC</option>
+                      <option value="rdc">Brazza</option>
+                      <option value="rdc">Gabon</option>
+                      <option value="rdc">Kenya</option>
+                    </select>
                   </div>
                   <div>
                     <label for="number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Telephone</label>
@@ -129,23 +179,12 @@ const SignUp = () => {
                     <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mot de passe</label>
                     <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
                   </div>
-                  <div>
-                    <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Commune</label>
-                    <input type="text" name="text" id="password" placeholder="commune" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
-                  </div>
-                  <div>
-                    <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Province</label>
-                    <select name="" className='class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"' id="">
-                      <option value="s">ss</option>
-                      <option value="ss">ss</option>
-                    </select>
-                  </div>
                 </div>
                 <br />
                 <button type="submit" class="w-full text-white bg-primary-600 bg-dark-purple hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                   <div class="flex items-center justify-center">
                     {loading && <div class="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white-900 mr-2"></div>}
-                    <span class="text-center">S'inscrire</span>
+                    <span class="text-center">Cliquez ici pour vous s'inscrire</span>
                   </div>
                 </button>
               </form>

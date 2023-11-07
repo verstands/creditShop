@@ -32,11 +32,14 @@ const Paiement = () => {
   const [loading, setloading] = useState(true);
   let token = `Bearer ${localStorage.getItem("token")}`;
   const navigate = useNavigate();
+
+
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate('/login');
+    }
+  }, [navigate]);
   
-  
-  if(!localStorage.getItem("token")){
-    navigate('/login')
-  }
   const [messageA, setmessageA] = useState("")
   useEffect(() => {
     getPaiement().then((membre) => {
@@ -57,54 +60,50 @@ const Paiement = () => {
       <div className='pt-[25px]  px-[25px] bg-[#F8F9FC]'>
         <div>
           <Card className="h-full w-full overflow-scroll">
-          <CardHeader floated={false} shadow={false} className="rounded-none">
-                        <div className="mb-4 flex flex-col justify-between gap-8 md:flex-row md:items-center">
-                            <div className='flex'>
-                                <div className='px-5 flex items-center'>
-                                    <FaMoneyBill className='' />
-                                    <div className='ml-10'>
-                                        <Typography variant="h5" color="blue-gray">
-                                            Paiement 
-                                        </Typography>
-                                        <Typography variant="h9">
-                                            Liste des paiements
-                                        </Typography>
-                                        <Typography variant="h9">
-                                            <button onClick={PayerClick} type="submit" class="w-full text-white bg-primary-600 bg-dark-purple hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                                                <div class="flex items-center justify-center">
-                                                    <span class="text-center">Payer</span>
-                                                </div>
-                                            </button>
-                                        </Typography>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </CardHeader>
-            {
-              getPaiements.length > 0 ? (
-                <table className="w-full min-w-max table-auto text-left">
-                  <thead>
-                    <tr>
-                      {TABLE_HEAD.map((head) => (
-                        <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal leading-none opacity-70"
-                          > 
-                            {head}  
-                          </Typography>
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
+            <CardHeader floated={false} shadow={false} className="rounded-none">
+              <div className="mb-4 flex flex-col justify-between gap-8 md:flex-row md:items-center">
+                <div className='flex'>
+                  <div className='px-5 flex items-center'>
+                    <FaMoneyBill className='' />
+                    <div className='ml-10'>
+                      <Typography variant="h5" color="blue-gray">
+                        Paiement
+                      </Typography>
+                      <Typography variant="h9">
+                        Liste des paiements
+                      </Typography>
+                      <Typography variant="h9">
+                        <button onClick={PayerClick} type="submit" class="w-full text-white bg-primary-600 bg-dark-purple hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                          <div class="flex items-center justify-center">
+                            <span class="text-center">Payer</span>
+                          </div>
+                        </button>
+                      </Typography>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardHeader>
+            {getPaiements.length > 0 ? (
+              <table className="w-full min-w-max table-auto text-left">
+                <thead>
+                  <tr>
+                    {TABLE_HEAD.map((head) => (
+                      <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                        <Typography variant="small" color="blue-gray" className="font-normal leading-none opacity-70">
+                          {head}
+                        </Typography>
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
                   <TablePaiement TABLE_ROWS={getPaiements} />
-                </table>
-              ) : (
-                <p className='text-center text-red-500 font-bold mt-10'>{setmessageA}</p>
-              )
-            }
+                </tbody>
+              </table>
+            ) : (
+              <p className="text-center text-red-500 font-bold mt-10">{setmessageA}</p>
+            )}
             {loading && (
               <Spinner />
             )}

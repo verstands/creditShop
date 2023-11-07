@@ -59,6 +59,7 @@ const Login = () => {
                 let tokenT = token.substring(1, token.length - 1);
                 localStorage.setItem("token", tokenT);
                 setloading(false);
+                toast.success(`Vous etes connecter`);
                 navigate('/');
             } else {
                 token = '';

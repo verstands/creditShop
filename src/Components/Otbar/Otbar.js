@@ -62,7 +62,7 @@ const Otbar = () => {
 
   return (
     <>
-      <div className='flex items-center justify-between h-[70px] shadow-lg px-[25px]'>
+      <div className='flex items-center justify-center h-[70px] shadow-lg px-[25px]'>
 
         {
           window.innerWidth > 640 && (
@@ -75,46 +75,45 @@ const Otbar = () => {
             </div>
           )
         }
-        <div className='flex items-center justify-between gap-[15px] relative'>
-  <div className='flex items-center border-r-[1px] pr-[25px] gap-[25px]'>
-    <FaEnvelope size={30} />
-    <div className='flex items-center'>
-      <Link to='/detailpanier'>
-        <FaShoppingCart size={30} className='mr-2' />
-      </Link>
-      <Link to='/detailpanier'>
-        {/* Autre contenu ici */}
-      </Link>
-    </div>
-  </div>
-  <div>
-    
-  </div>
-  <div className='flex items-center gap-[15px] relative' onClick={showDropDown}>
-    {open && localStorage.getItem("token") && (
-      <div className='bg-white border h-[120px] w-[150px] absolute bottom-[-135px] z-20 right-0 pt-[15px] pl-[15px]'>
-        <p className='flex gap-3'>
-          <Link to='/profil' className='hover:text-dark-purple font-semibold'>
-            Profile
-          </Link>
-        </p>
-        <p className='flex gap-3'>
-          <Link to='/parametre' className='hover:text-dark-purple font-semibold'>
-            Parametre
-          </Link>
-        </p>
-        <p className='flex gap-3'>
-          <Link to='/Deconnexion' className='hover:text-dark-purple font-semibold'>
-            Se deconnecter
-          </Link>
-        </p>
-      </div>
-    )}
-    <div className='flex justify-end cursor-pointer'>
-      <FaUserCircle className='text-[40px]' />
-    </div>
-  </div>
-</div>
+        <div className='flex items-center justify-between gap-[5px]'>
+          <div className='flex items-center border-r-[1px]  gap-[1px]'>
+            <div className='flex items-center'>
+              <Link to='/detailpanier'>
+                <div className='flex items-center justify-center mt-1 mb-3 mx-10 bg-green-700 h-[45px] w-[165px] rounded text-white'>
+                Voir le produit
+                </div>
+              </Link>
+            </div>
+          </div>
+          <div>
+
+          </div>
+          <div className='flex items-center gap-[15px] relative' onClick={showDropDown}>
+            {open && localStorage.getItem("token") && (
+              <div className='bg-white border h-[120px] w-[150px] absolute bottom-[-135px] z-20 right-0 pt-[15px] pl-[15px]'>
+                <p className='flex gap-3'>
+                  <Link to='/profil' className='hover:text-dark-purple font-semibold'>
+                    Profile
+                  </Link>
+                </p>
+                <p className='flex gap-3'>
+                  <Link to='/parametre' className='hover:text-dark-purple font-semibold'>
+                    Parametre
+                  </Link>
+                </p>
+                <p className='flex gap-3'>
+                  <Link to='/Deconnexion' className='hover:text-dark-purple font-semibold'>
+                    Se deconnecter
+                  </Link>
+                </p>
+              </div>
+            )}
+            {localStorage.getItem("token") ? <p>{profil?.client_prenom} {profil?.client_nom}</p> : null}
+            <div className='flex justify-end cursor-pointer'>
+              <FaUserCircle className='text-[40px]' />
+            </div>
+          </div>
+        </div>
       </div>
 
     </>

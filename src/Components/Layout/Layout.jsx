@@ -28,7 +28,7 @@ const Layout = () => {
           </div>
           <div className="md:basis-[80%] border">
             <div className="sticky top-0">
-              <Otbar />
+              <Otbar/>
             </div>
             <Outlet />
           </div>

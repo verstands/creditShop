@@ -138,3 +138,24 @@ export const getcountMonCompteProduit = () => {
         }
     });
 }
+
+export const getSommePayer = () => { 
+    return axios.get(`${url}MontantPaye`,
+        {
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: token
+            }
+        }
+    ).then((response) => {
+        return response.data.data;
+    })
+    .catch((error) => {
+        if (error.response && error.response.status === 401) {
+            window.location.href='/login'
+        } else {
+           alert(error.response.data.message)
+        }
+    });
+}

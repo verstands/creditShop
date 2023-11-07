@@ -20,6 +20,9 @@ import Dash from '../Pages/Dash/dash';
 import PaiementFormulaire from '../Pages/PaiementFormulaire/PaiementFormulaire';
 import Compte from '../Pages/Compte/Compte';
 import Produitts from '../Pages/Produit/Produitts';
+import Contact from '../Pages/Contact/Contact';
+import AchatCadre from '../Pages/AchatCredit/AchatCadre';
+import AchatFormulaire from '../Pages/AchatCredit/AchatFormulaire';
 
 const RoutePage = () => {
     return (
@@ -39,10 +42,13 @@ const RoutePage = () => {
                 <Route path="/PaiementFormulaire" element={<PaiementFormulaire />} />
                 <Route path="/MonCompte" element={<Compte />} />
                 <Route path="/Produits" element={<Produitts />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/achatcadre" element={<AchatCadre />} />
+                <Route path="/achatformulaire" element={<AchatFormulaire />} />
+                <Route path="/" element={<Dash />} />
             </Route>
             {/*  routes public */}
             <Route path="/login" element={<Login />} />
-            <Route path="/" element={<Dash />} />
             <Route path="/inscription" element={<SignUp />} />
             <Route path="*" element={<Page404 />} />
             <Route path="/page500" element={<Connexioin500 />} />

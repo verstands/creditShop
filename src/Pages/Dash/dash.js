@@ -4,7 +4,9 @@ import {
     FaShoppingCart,
     FaUserCircle,
     FaCreditCard,
-    FaUserPlus
+    FaUserPlus,
+    FaStore,
+    FaPhone
 } from 'react-icons/fa';
 
 const Dash = () => {
@@ -22,34 +24,50 @@ const Dash = () => {
             <hr />
             <div className='grid grid-cols-2 xs:grid-cols-2 p-[20px] gap-[30px] mt-[25px] pb-[15px]'>
                 <Link to='/services'>
-                    <div className='h-[150px] rounded-[8px] bg-white border-[2px] border-dark-purple hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease flex items-center justify-center'>
+                    <div className='h-[150px] rounded-[8px] bg-red-800 border-[2px] border-dark-purple hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease flex items-center justify-center'>
                         <div className='text-center'>
-                            <center> <FaShoppingCart size={50} /></center>
-                            <p className='text-[16px] font-bold'>Catalogue des produits</p>
+                            <center> <FaShoppingCart size={50} color='white'/></center>
+                            <p className='text-[16px] font-bold text-white' >Catalogue des produits</p>
                         </div>
                     </div>
                 </Link>
                 <Link to='/inscription'>
-                    <div className='h-[150px] rounded-[8px] bg-white border-[2px] border-dark-purple hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease flex items-center justify-center'>
+                    <div className='h-[150px] rounded-[8px] bg-purple-800 border-[2px] border-dark-purple hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease flex items-center justify-center'>
                         <div className='text-center'>
-                            <center> <FaUserPlus size={50} /></center>
-                            <p className='text-[16px] font-bold'>Inscrivez-vous ici</p>
+                            <center> <FaUserPlus size={50} color='white'/></center>
+                            <p className='text-[16px] font-bold text-white' >Inscrivez-vous ici</p>
                         </div>
                     </div>
                 </Link>
                 <Link to='/paiements'>
-                    <div className='h-[150px] rounded-[8px] bg-white border-[2px] border-dark-purple hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease flex items-center justify-center'>
+                    <div className='h-[150px] rounded-[8px] bg-blue-800 border-[2px] border-dark-purple hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease flex items-center justify-center'>
                         <div className='text-center'>
-                            <center> <FaCreditCard size={50} /></center>
-                            <p className='text-[16px] font-bold'>Paiement d'un compte</p>
+                            <center> <FaCreditCard size={50} color='white'/></center>
+                            <p className='text-[16px] font-bold text-white'>Paiement d'un compte</p>
                         </div>
                     </div>
                 </Link>
                 <Link to='/MonCompte'>
-                    <div className='h-[150px] rounded-[8px] bg-white border-[2px] border-dark-purple hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease flex items-center justify-center'>
+                    <div className='h-[150px] rounded-[8px] bg-green-800 border-[2px] border-dark-purple hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease flex items-center justify-center'>
                         <div className='text-center'>
-                            <center> <FaUserCircle size={50} /></center>
-                            <p className='text-[16px] font-bold'>Mon compte creditshop</p>
+                            <center> <FaUserCircle size={50} color='white'/></center>
+                            <p className='text-[16px] font-bold text-white'>Mon compte creditshop</p>
+                        </div>
+                    </div>
+                </Link>
+                <Link to='/achatcadre'>
+                    <div className='h-[150px] rounded-[8px] bg-gray-700 border-[2px] border-dark-purple hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease flex items-center justify-center'>
+                        <div className='text-center'>
+                            <center> <FaStore size={50} color='white'/></center>
+                            <p className='text-[16px] font-bold text-white'>Faire un achat a credit</p>
+                        </div>
+                    </div>
+                </Link>
+                <Link to='/contact'>
+                    <div className='h-[150px] rounded-[8px] bg-gray-700 border-[2px] border-dark-purple hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease flex items-center justify-center'>
+                        <div className='text-center'>
+                            <center> <FaPhone size={50} color='white'/></center>
+                            <p className='text-[16px] font-bold text-white'>Conctatez-nous</p>
                         </div>
                     </div>
                 </Link>

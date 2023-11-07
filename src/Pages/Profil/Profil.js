@@ -30,19 +30,19 @@ const Profil = () => {
                         <div className="md:flex border-black mt-4">
                             <div className="md:w-8/12">
                                 <div>
-                                    <div className='grid grid-cols-2  border-b'>
+                                    <div className='grid md:grid-cols-2  border-b'>
                                         <p>Nom : <span className='pl-5 font-bold'>{profil.client_nom}</span></p>
                                         <p className='md:pl-10'>Postnom : <span className='pl-5 font-bold'>{profil.client_post}</span></p>
                                     </div>
-                                    <div className='grid grid-cols-2  border-b mt-10'>
+                                    <div className='grid md:grid-cols-2  border-b mt-10'>
                                         <p>Telephone : <span className='pl-5 font-bold'>{profil.client_tel}</span></p>
                                         <p className='md:pl-10'>Prenom : <span className='pl-5 font-bold'>{profil.client_prenom}</span></p>
                                     </div>
-                                    <div className='grid grid-cols-2  border-b mt-10'>
+                                    <div className='grid md:grid-cols-2  border-b mt-10'>
                                         <p>Adresse : <span className='pl-5 font-bold'>{profil.client_adresse}</span></p>
                                         <p className='md:pl-10'>Province : <span className='pl-5 font-bold'>{profil.client_province}</span></p>
                                     </div>
-                                    <div className='grid grid-cols-2  border-b mt-10'>
+                                    <div className='grid md:grid-cols-2  border-b mt-10'>
                                         <p>Commune : <span className='pl-5 font-bold'>{profil.client_commune}</span></p>
                                         <p>Mot de passe : <span className='pl-5 font-bold'>xxxxxxxxx</span></p>
                                     </div>

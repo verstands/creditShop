@@ -152,14 +152,15 @@ const Articles = () => {
                                         <p>{ats.article_description.slice(0, 50)}...</p>
                                         <div className='flex items-center justify-between'>
                                             <div className='font-bold text-red-600'>{ats.article_prix}$</div>
-                                            <div className='flex items-center justify-center mt-1 mb-3 mx-10 bg-green-700 h-[40px] w-[155px] rounded text-white'>
-                                                <FaShoppingCart />
-                                                <button className='' onClick={() => addToCart(ats)}> Ajouter au panier</button>
+                                            <div className='flex items-center justify-center mt-1 mb-3 mx-10 bg-green-700 h-[45px] w-[165px] rounded text-white'>
+                                               
+                                                <button className='' onClick={() => addToCart(ats)}>Je chois le produit</button>
                                             </div>
                                             {loadingA &&
                                                 <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-black mr-2"></div>
                                             }
                                         </div>
+                                        <hr />
                                     </div>
                                 )
                             })

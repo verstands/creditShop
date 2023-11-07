@@ -21,7 +21,7 @@ export const getPaiement = () => {
         return response.data.data;
     })
         .catch((error) => {
-            toast.error(`${error.response.data.message}`)
+           
         });
 }
 
