@@ -47,8 +47,7 @@ const Compte = () => {
         });
     }, []);
     const [Reste, setReste] = useState(0)
-    const v = Sommepayer && Sommepayer.length > 0 ? Sommepayer : "0";
-    const calculeReste = parseInt(commade) - parseInt(v);
+    const calculeReste = parseInt(commade) - parseInt(Sommepayer)
     return (
         <section class="bg-gray-50 dark:bg-gray-900">
             <div className='grid grid-cols-2 xs:grid-cols-2 p-[20px] gap-[30px] mt-[25px] pb-[15px]'>
@@ -66,7 +65,7 @@ const Compte = () => {
                         <div className='text-center'>
                             <center> <FaMoneyCheck className='text-white' size={50} /></center>
                             <p className='text-[16px] font-bold text-white'>Prix produit </p>
-                            <p className='text-[16px] font-bold text-white'>{commade && commade.length > 0 ? commade : "0"}$</p>
+                            <p className='text-[16px] font-bold text-white'>{commade}$</p>
                         </div>
                     </div>
                 </Link>
@@ -84,7 +83,7 @@ const Compte = () => {
                         <div className='text-center'>
                             <center> <FaMoneyCheck className='text-white' size={50} /></center>
                             <p className='text-[16px] font-bold text-white'>Reste à payer </p>
-                            <p className='text-[16px] font-bold text-white'>{calculeReste && calculeReste.length > 0 ? calculeReste : "0"}$</p>
+                            <p className='text-[16px] font-bold text-white'>{calculeReste}$</p>
                         </div>
                     </div>
                 </Link>

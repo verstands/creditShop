@@ -42,7 +42,6 @@ const TablePaiement = ({ TABLE_ROWS }) => {
                             {kf.paiement_date}
                             </Typography>
                         </td>
-                        
                     </tr>
                 ))}
             </tbody>

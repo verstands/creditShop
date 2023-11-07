@@ -61,7 +61,7 @@ const AchatCredit = () => {
                                     <FaCreditCard className='' />
                                     <div className='ml-10'>
                                         <Typography variant="h5" color="blue-gray">
-                                            Achat credit : {getAchatCreditCounts && getAchatCreditCounts.length > 0 ? getAchatCreditCounts : "0"} Fc
+                                            Achat credit : {getAchatCreditCounts} Fc
                                         </Typography>
                                         <Typography variant="h9">
                                             Liste des achat credits

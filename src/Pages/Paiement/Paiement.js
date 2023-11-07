@@ -27,18 +27,18 @@ import { getPaiement } from '../../Apis/PaiiementApi';
 import Spinner from '../../Components/Spinner/Spinner';
 import { useNavigate } from 'react-router-dom';
 const Paiement = () => {
-  const TABLE_HEAD = ["Montant", "Devise", "Date", ""];
+  const TABLE_HEAD = ["Montant", "Devise", "Date", "", "ss"];
   const [getPaiements, setgetPaiements] = useState([]);
   const [loading, setloading] = useState(true);
   let token = `Bearer ${localStorage.getItem("token")}`;
   const navigate = useNavigate();
 
 
-  useEffect(() => {
+ 
     if (!localStorage.getItem("token")) {
       navigate('/login');
     }
-  }, [navigate]);
+
   
   const [messageA, setmessageA] = useState("")
   useEffect(() => {
