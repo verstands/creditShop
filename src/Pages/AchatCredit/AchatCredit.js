@@ -48,7 +48,7 @@ const AchatCredit = () => {
         });
     }, []);
     const Redige = () => {
-        navigate('/achatcadre')
+        navigate('/achatformulaire')
     }
     return (
         <div className='pt-[25px]  px-[25px] bg-[#F8F9FC]'>
@@ -61,7 +61,7 @@ const AchatCredit = () => {
                                     <FaCreditCard className='' />
                                     <div className='ml-10'>
                                         <Typography variant="h5" color="blue-gray">
-                                            Achat credit : {parseInt(getAchatCreditCounts)}Fc
+                                            Achat credit : {getAchatCreditCounts && getAchatCreditCounts.length > 0 ? getAchatCreditCounts : "0"} Fc
                                         </Typography>
                                         <Typography variant="h9">
                                             Liste des achat credits

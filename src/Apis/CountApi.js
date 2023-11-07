@@ -112,7 +112,7 @@ export const getcountMonCompte = () => {
         if (error.response && error.response.status === 401) {
             window.location.href='/login'
         } else {
-           alert(error.response.data.message)
+          
         }
     });
 }
@@ -134,7 +134,7 @@ export const getcountMonCompteProduit = () => {
         if (error.response && error.response.status === 401) {
             window.location.href='/login'
         } else {
-           alert(error.response.data.message)
+           
         }
     });
 }
@@ -155,7 +155,7 @@ export const getSommePayer = () => {
         if (error.response && error.response.status === 401) {
             window.location.href='/login'
         } else {
-           alert(error.response.data.message)
+          
         }
     });
 }

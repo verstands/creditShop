@@ -6,7 +6,8 @@ import {
     FaCreditCard,
     FaUserPlus,
     FaStore,
-    FaPhone
+    FaPhone,
+    FaWhatsapp
 } from 'react-icons/fa';
 
 const Dash = () => {
@@ -43,7 +44,7 @@ const Dash = () => {
                     <div className='h-[150px] rounded-[8px] bg-blue-800 border-[2px] border-dark-purple hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease flex items-center justify-center'>
                         <div className='text-center'>
                             <center> <FaCreditCard size={50} color='white'/></center>
-                            <p className='text-[16px] font-bold text-white'>Paiement d'un compte</p>
+                            <p className='text-[16px] font-bold text-white'>Paiement d'un acompte</p>
                         </div>
                     </div>
                 </Link>
@@ -55,18 +56,18 @@ const Dash = () => {
                         </div>
                     </div>
                 </Link>
-                <Link to='/achatcadre'>
+                <Link to='/achatformulaire'>
                     <div className='h-[150px] rounded-[8px] bg-gray-700 border-[2px] border-dark-purple hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease flex items-center justify-center'>
                         <div className='text-center'>
                             <center> <FaStore size={50} color='white'/></center>
-                            <p className='text-[16px] font-bold text-white'>Faire un achat a credit</p>
+                            <p className='text-[16px] font-bold text-white'>Faire un achat <br /> A CREDIT</p>
                         </div>
                     </div>
                 </Link>
-                <Link to='/contact'>
+                <Link to='https://api.whatsapp.com/send?phone=243840489603&texte=Bonjour'>
                     <div className='h-[150px] rounded-[8px] bg-gray-700 border-[2px] border-dark-purple hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease flex items-center justify-center'>
                         <div className='text-center'>
-                            <center> <FaPhone size={50} color='white'/></center>
+                            <center> <FaWhatsapp size={50} color='white'/></center>
                             <p className='text-[16px] font-bold text-white'>Conctatez-nous</p>
                         </div>
                     </div>

@@ -184,8 +184,8 @@ const DetailPanier = () => {
               </div>
             </div>
           </div>
-          : <div className='flex items-center justify-center'>
-            <p>Vous n'avez pas de proudit</p>
+          : <div className='flex items-center mt-6 justify-center'>
+            <p>Vous n'avez pas choisi les proudits</p>
           </div>
       }
 
