@@ -62,19 +62,7 @@ const Otbar = () => {
 
   return (
     <>
-      <div className='flex items-center justify-center h-[70px] shadow-lg px-[25px]'>
-
-        {
-          window.innerWidth > 640 && (
-            <div className='flex items-center rounded-[5px]'>
-              <div className='bg-red-500 h-8 w-8 flex justify-center rounded gap-[20px]'>
-                <button>
-                  <FaBars />
-                </button>
-              </div>
-            </div>
-          )
-        }
+      <div className='flex items-center justify-center h-[70px] shadow-md px-[35px]'>
         <div className='flex items-center justify-between gap-[5px]'>
           <div className='flex items-center border-r-[1px]  gap-[1px]'>
             <div className='flex items-center'>
@@ -85,9 +73,7 @@ const Otbar = () => {
               </Link>
             </div>
           </div>
-          <div>
-
-          </div>
+          
           <div className='flex items-center gap-[15px] relative' onClick={showDropDown}>
             {open && localStorage.getItem("token") && (
               <div className='bg-white border h-[120px] w-[150px] absolute bottom-[-135px] z-20 right-0 pt-[15px] pl-[15px]'>
