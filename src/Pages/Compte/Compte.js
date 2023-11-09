@@ -87,7 +87,7 @@ const Compte = () => {
                         </div>
                     </div>
                 </Link>
-                <Link to='/paiements'>
+                <Link to='/PaiementFormulaire'>
                     <div className='h-[150px] rounded-[8px] bg-red-800  border-[2px] border-dark-purple hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease flex items-center justify-center'>
                         <div className='text-center'>
                             <center> <FaCreditCard className='text-white' size={50} /></center>

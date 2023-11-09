@@ -80,3 +80,23 @@ export const achatcreditAction = (data) => {
             }
         })
 }
+
+export const getAchatCreditList = () => {
+    return axios.get(`${url}achatcreditlist`,
+        {
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: token
+            }
+        }
+    ).then((response) => {
+        return response.data.data;
+    }).catch((error) => {
+            if (error.response && error.response.status === 401) {
+                window.location.href = "/";
+            } else {
+                alert(error)
+            }
+        });
+}

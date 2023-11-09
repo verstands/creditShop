@@ -54,15 +54,20 @@ const Login = () => {
             }
         ).then((response) => {
             let token;
+            let data;
             if (response.data.token !== undefined) {
                 token = JSON.stringify(response.data.token);
+                data = JSON.stringify(response.data.data.client_tel);
                 let tokenT = token.substring(1, token.length - 1);
+                let dataT = data.substring(1, data.length - 1);
                 localStorage.setItem("token", tokenT);
+                localStorage.setItem("data", dataT);
                 setloading(false);
                 toast.success(`Vous etes connecter`);
                 navigate('/');
             } else {
                 token = '';
+                data = '';
             }
         }).catch((error) => {
             if (error?.response?.status === 401) {

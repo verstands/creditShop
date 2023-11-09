@@ -12,15 +12,17 @@ import {
     FaCreditCard,
     FaShoppingCart
 } from 'react-icons/fa';
-import { getAchatCredit, getAchatCreditCount } from '../../Apis/AchatCreditApi';
+import { getAchatCredit, getAchatCreditCount, getAchatCreditList } from '../../Apis/AchatCreditApi';
 import TableAchatCredit from '../../Components/TableAchatCredit/TableAchatCredit';
 import { useNavigate } from 'react-router-dom';
+import Spinner from '../../Components/Spinner/Spinner';
 
 const AchatCredit = () => {
-    const TABLE_HEAD = ["Montant", "Devise", "Date", ""];
+    const TABLE_HEAD = ["Montant", "Devise", "Date","Agent", ""];
     const [getAchatCredits, setgetAchatCredits] = useState([]);
     const [getAchatCreditCounts, setgetAchatCreditCounts] = useState(0);
     const [loading, setloading] = useState(true)
+    const [loadingA, setloadingA] = useState(false)
     let token = `Bearer ${localStorage.getItem("token")}`;
     const navigate = useNavigate();
 
@@ -47,6 +49,14 @@ const AchatCredit = () => {
             console.log(error);
         });
     }, []);
+    const [list, setList] = useState([])
+    useEffect(() => {
+        getAchatCreditList().then((membre) => {
+            setList(membre);
+        }).catch((error) => {
+            console.log(error); 
+        });
+    }, []);
     const Redige = () => {
         navigate('/achatformulaire')
     }
@@ -57,23 +67,32 @@ const AchatCredit = () => {
                     <CardHeader floated={false} shadow={false} className="rounded-none">
                         <div className="mb-4 flex flex-col justify-between gap-8 md:flex-row md:items-center">
                             <div className='flex'>
-                                <div className='px-5 flex items-center'>
-                                    <FaCreditCard className='' />
+                                <div className='px-1'>
                                     <div className='ml-10'>
-                                        <Typography variant="h5" color="blue-gray">
-                                            Achat credit : {getAchatCreditCounts} Fc
+                                        <div className=' items-center'>
+                                        <Typography variant="h1" color="blue-gray">
+                                             <center>
+                                             Montant total restant <br /> pour faire des achats a credit 
+                                             </center>
                                         </Typography>
-                                        <Typography variant="h9">
-                                            Liste des achat credits
+                                        <Typography variant="h1" color="red">
+                                           <center>{getAchatCreditCounts} Fc</center>
                                         </Typography>
+                                        </div>
                                         <Typography variant="h9">
                                             <button onClick={Redige} type="submit" class="w-full text-white bg-primary-600 bg-dark-purple hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                                                 <div class="flex items-center justify-center">
-                                                    {loading && <div class="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white-900 mr-2"></div>}
-                                                    <span class="text-center">Achat credit</span>
+                                                    {loadingA && <div class="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white-900 mr-2"></div>}
+                                                    <span class="text-center">Achat a credit</span>
                                                 </div>
                                             </button>
                                         </Typography>
+                                        <br />
+                                        <center>
+                                        <Typography variant="h9">
+                                            Rélévé des achats à credit déjà effectué
+                                        </Typography>
+                                        </center>
                                     </div>
                                 </div>
                             </div>
@@ -95,8 +114,9 @@ const AchatCredit = () => {
                                 ))}
                             </tr>
                         </thead>
-                        <TableAchatCredit TABLE_ROWS={getAchatCredits} />
+                        <TableAchatCredit TABLE_ROWS={list} />
                     </table>
+                    {loading && <Spinner />}
                 </Card>
             </div>
         </div>

@@ -67,10 +67,7 @@ const Paiement = () => {
                     <FaMoneyBill className='' />
                     <div className='ml-10'>
                       <Typography variant="h5" color="blue-gray">
-                        Paiement
-                      </Typography>
-                      <Typography variant="h9">
-                        Liste des paiements
+                        Paiement d'un acompte
                       </Typography>
                       <Typography variant="h9">
                         <button onClick={PayerClick} type="submit" class="w-full text-white bg-primary-600 bg-dark-purple hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
@@ -78,6 +75,10 @@ const Paiement = () => {
                             <span class="text-center">Payer</span>
                           </div>
                         </button>
+                      </Typography>
+                      <br />
+                      <Typography variant="h9">
+                        Liste des paiements d'un acompte
                       </Typography>
                     </div>
                   </div>

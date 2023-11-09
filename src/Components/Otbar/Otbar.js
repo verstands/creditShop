@@ -68,7 +68,7 @@ const Otbar = () => {
             <div className='flex items-center'>
               <Link to='/detailpanier'>
                 <div className='flex  items-center justify-center mt-1 mb-3 mx-10 bg-green-700 h-[45px] w-[175px] rounded text-white'>
-                Voir les produit choisi
+                Voir les produits choisis
                 </div>
               </Link>
             </div>

@@ -16,6 +16,8 @@ const Profil = () => {
         getProfil().then((membre) => {
             setprofil(membre);
             setloading(false)
+            const phone = profil.client_tel;
+            localStorage.setItem("phone", phone);
         }).catch((error) => {
             console.log(error);
         });

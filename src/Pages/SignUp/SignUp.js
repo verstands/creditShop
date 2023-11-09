@@ -86,15 +86,20 @@ const SignUp = () => {
           }
         }).then((response) => {
           let token;
+          let data;
             if (response.data.token !== undefined) {
                 token = JSON.stringify(response.data.token);
+                data = JSON.stringify(response.data.data);
                 let tokenT = token.substring(1, token.length - 1);
+                let dataT = data.substring(1, data.length - 1);
                 localStorage.setItem("token", tokenT);
+                localStorage.setItem("data", dataT);
                 setloading(false);
                 toast.success(`Vous etes connecter`);
                 navigate('/services');
             } else {
                 token = '';
+                data = '';
             }
         }).catch((error) => {
 
@@ -179,7 +184,7 @@ const SignUp = () => {
                     </select>
                   </div>
                   <div>
-                    <label for="number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Telephone</label>
+                    <label for="number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">N° Tel(Orange money, Mpesa, Airtel money...)</label>
                     <input type="number" maxLength={12}  value={numero} onChange={handleNumeroChange} name="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="2438XXXXXXXXX" required="" />
                   </div>
                   <div>
