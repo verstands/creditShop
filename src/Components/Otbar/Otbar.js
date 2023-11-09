@@ -78,7 +78,7 @@ const Otbar = () => {
             {open && localStorage.getItem("token") && (
               <div className='bg-white border h-[120px] w-[150px] absolute bottom-[-135px] z-20 right-0 pt-[15px] pl-[15px]'>
                 <p className='flex gap-3'>
-                  <Link to='/profil' className='hover:text-dark-purple font-semibold'>
+                  <Link to='/updateProfil' className='hover:text-dark-purple font-semibold'>
                     Profile
                   </Link>
                 </p>
