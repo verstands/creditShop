@@ -5,15 +5,19 @@ import { toast } from "react-toastify";
 import { TEInput, TERipple } from "tw-elements-react";
 import { addUser } from '../../Apis/UserApi';
 import { useNavigate } from 'react-router-dom';
+import { VerifyCodeSms } from '../../Apis/CodeVerify';
 
 
 const SignUp = () => {
   const [showNan, setshowNan] = useState(true)
   const [IsMobile, setIsMobile] = useState(false)
   const [loading, setloading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false)
   const form = useRef();
   const [numero, setNumero] = useState('243');
   const navigate = useNavigate();
+  const [CodeRecuparaton, setCodeRecuparaton] = useState(0)
+
 
 
   let token = `Bearer ${localStorage.getItem("token")}`;
@@ -95,8 +99,8 @@ const SignUp = () => {
                 localStorage.setItem("token", tokenT);
                 localStorage.setItem("data", dataT);
                 setloading(false);
-                toast.success(`Vous etes connecter`);
-                navigate('/services');
+                toast.success(`Vous venez de recevoir  un code par sms pour activer votre compte`);
+               // navigate('/services');
             } else {
                 token = '';
                 data = '';
@@ -123,6 +127,41 @@ const SignUp = () => {
     }
 
   }
+
+  const [RecCode, setRecCode] = useState(0);
+
+useEffect(() => {
+  if (RecCode !== 0) {
+    alert(RecCode);
+  }
+}, [RecCode]);
+
+const openModal = async (e) => {
+  e.preventDefault();
+
+  if (!numero.startsWith("243") || numero.startsWith("0")) {
+    setloading(false);
+    toast.error("Le numéro de téléphone doit commencer par 243 et ne pas commencer par 0");
+    return;
+  }
+
+  setIsOpen(true);
+
+  try {
+    const data = { "client_tel": numero };
+    const membre = await VerifyCodeSms(data);
+    setRecCode(membre);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    // Code à exécuter après la résolution ou le rejet de la promesse
+  }
+};
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
   return (
     <>
       <section class="bg-gray-50 dark:bg-gray-900">
@@ -136,7 +175,7 @@ const SignUp = () => {
               <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                 S'isncrire
               </h1>
-              <form ref={form} onSubmit={Save}>
+              <form ref={form} onSubmit={openModal}>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
                     <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom</label>
@@ -189,7 +228,7 @@ const SignUp = () => {
                   </div>
                   <div>
                     <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mot de passe</label>
-                    <input type="password" maxLength={4} name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
+                    <input type="password"  name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
                   </div>
                 </div>
                 <br />
@@ -204,6 +243,25 @@ const SignUp = () => {
           </div>
         </div>
       </section>
+
+      {isOpen && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg shadow-lg p-20">
+            <h2 className="text-xl font-bold mb-4">Code d'Activation</h2>
+            <div className='mb-3'>
+              <input type="number" name="password" id="password" placeholder="" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
+            </div>
+            <div className='flex justify-between'>
+              <button onClick={closeModal} className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded">
+                Fermer
+              </button>
+              <button onClick={closeModal} className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
+                Valider
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

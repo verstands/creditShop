@@ -40,8 +40,8 @@ const PaiementFormulaire = () => {
     
     const PayBtn = async (e) => {
         e.preventDefault();
+        setloadingA(true);
         try {
-            setloadingA(true);
             const data = `USD/${form.current[0].value}/${dataa}/creditshop`;
             await addPayer(data);
         } catch (error) {

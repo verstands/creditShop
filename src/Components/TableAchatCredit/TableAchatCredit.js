@@ -34,6 +34,7 @@ const TableAchatCredit = ({ TABLE_ROWS }) => {
                             {kf.paiement_agent && kf.paiement_agent.vendeur_nom}
                             </Typography>
                         </td>
+                        
                     </tr>
                 ))}
             </tbody>

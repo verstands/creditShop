@@ -33,8 +33,9 @@ const AchatFormulaire = () => {
             await achatcreditAction(data);
             setloading(false);
         } catch (error) {
+            console.error(error);
+        }finally {
             setloading(false);
-            // Gérer l'erreur
         }
      
     }

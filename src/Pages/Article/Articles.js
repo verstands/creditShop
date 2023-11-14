@@ -32,7 +32,16 @@ const Articles = () => {
             console.log(error);
         });
     }, []);
+    useEffect(() => {
+        const storedCart = localStorage.getItem('panier');
+        if (storedCart) {
+            const parsedCart = JSON.parse(storedCart);
+            setInputList(parsedCart);
 
+            const total = parsedCart.reduce((acc, item) => acc + item.total, 0);
+            setSommeTotale(total);
+        }
+    }, []);
     const OnPanier = (id) => {
         let data = {
             article: id
@@ -96,7 +105,7 @@ const Articles = () => {
                     prix: article.article_prix,
                     total: article.article_prix,
                     quantite: 1,
-                    id : article.id
+                    id: article.id
                 };
 
                 setInputList((prevInputList) => {
@@ -153,7 +162,7 @@ const Articles = () => {
                                         <div className='flex items-center justify-between'>
                                             <div className='font-bold text-red-600'>{ats.article_prix}$</div>
                                             <div className='flex items-center justify-center mt-1 mb-3 mx-10 bg-green-700 h-[45px] w-[165px] rounded text-white'>
-                                               
+
                                                 <button className='' onClick={() => addToCart(ats)}>Je choisis ce produit</button>
                                             </div>
                                             {loadingA &&
