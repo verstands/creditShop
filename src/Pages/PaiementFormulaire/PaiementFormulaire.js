@@ -42,8 +42,8 @@ const PaiementFormulaire = () => {
         e.preventDefault();
         setloadingA(true);
         try {
-            const data = `USD/${form.current[0].value}/${dataa}/creditshop`;
-            await addPayer(data);
+            const dataE= `USD/${form.current[0].value}/${dataa}/creditshop`;
+            await addPayer(dataE);
         } catch (error) {
             console.error(error);
         } finally {

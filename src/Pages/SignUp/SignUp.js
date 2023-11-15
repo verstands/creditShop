@@ -99,8 +99,8 @@ const SignUp = () => {
                 localStorage.setItem("token", tokenT);
                 localStorage.setItem("data", dataT);
                 setloading(false);
-                toast.success(`Vous venez de recevoir  un code par sms pour activer votre compte`);
-               // navigate('/services');
+                toast.success(`Votre compte est crée`);
+                navigate('/services');
             } else {
                 token = '';
                 data = '';
@@ -132,7 +132,7 @@ const SignUp = () => {
 
 useEffect(() => {
   if (RecCode !== 0) {
-    alert(RecCode);
+  
   }
 }, [RecCode]);
 
@@ -175,7 +175,7 @@ const openModal = async (e) => {
               <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                 S'isncrire
               </h1>
-              <form ref={form} onSubmit={openModal}>
+              <form ref={form} onSubmit={Save}>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
                     <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom</label>

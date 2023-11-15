@@ -21,7 +21,7 @@ export const getPaiement = () => {
         return response.data.data;
     })
         .catch((error) => {
-           
+
         });
 }
 
@@ -50,9 +50,9 @@ export const getSystementPaiement = (devise, montant, phone, refernce) => {
         });
 }
 
-export const addPayer = (data) => {
+export const addPayer = (dataE) => {
     axios
-        .get(`${url}apipaiement/${data}`, {
+        .get(`${url}apipaiement/${dataE}`, {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ export const addPayer = (data) => {
             }
         })
         .then((response) => {
-            toast.success(`Transaction envoyée avec succès. Veuillez valider le push message`)
+            toast.success(`Veuillez patienter et confirmer votre paiement en ligne sur le prochain popup sur votre téléphone`)
         })
         .catch((error) => {
             alert(error);
